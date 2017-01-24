@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="3 seconds">
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="IOT_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout>
+			<pattern>%d{HH:mm:ss.SSS} [IOT] %-5level %logger{36} - %msg%n</pattern>
+		</layout>
+	</appender>
+
+	<logger name="com.ljw.iot" level="TRACE">
+		<appender-ref ref="IOT_STDOUT" />
+	</logger>
+	
+	<!-- <root level="ERROR">
+    		<appender-ref ref="STDOUT" />
+  	</root> -->
+</configuration>

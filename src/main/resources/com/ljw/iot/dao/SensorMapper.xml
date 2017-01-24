@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljw.iot.dao.SensorMapper">
+  
+  <resultMap id="sensorResultMap" type="sensor">
+    <id column="SENSOR_ID" jdbcType="BIGINT" property="sensor_id" />
+    <result column="SENSOR_TYPE" jdbcType="VARCHAR" property="sensor_type" />
+    <result column="SENSOR_NAME" jdbcType="VARCHAR" property="sensor_name" />
+    <result column="DESC" jdbcType="VARCHAR" property="desc" />
+    <result column="REG_DT" jdbcType="TIMESTAMP" property="reg_dt" />
+  </resultMap>
+  
+  <resultMap id="sensorMeasureResultMap" type="sensorMeasure">
+    <id column="SENSOR_ID" jdbcType="BIGINT" property="sensor.sensor_id" />
+    <result column="SENSOR_TYPE" jdbcType="VARCHAR" property="sensor.sensor_type" />
+    <result column="SENSOR_NAME" jdbcType="VARCHAR" property="sensor.sensor_name" />
+    <result column="DESC" jdbcType="VARCHAR" property="sensor.desc" />
+    <collection  property="measureList" ofType="measure">
+     <id column="MEASURE_ID" property="measure_id"/>
+  	 <result column="MEASURE" property="measure"/>
+    </collection>
+  </resultMap>
+  
+  
+  
+  <!-- 센서 정보 조회 -->
+  <select id="getSensorList" resultMap="sensorResultMap">
+    SELECT
+ 		sensor_id, sensor_type, sensor_name, desc, reg_dt
+    FROM SENSOR
+  </select>
+  
+  <!-- 센서 측정치 조회 -->
+  <select id="getMesureList" resultType="measure">
+   SELECT
+		measure_id, sensor_id, measure, reg_dt
+   FROM MEASURE
+ </select>
+ 
+ <!-- 센서별 측치 조회 -->
+ <select id="getSensorMeasure" resultMap="sensorMeasureResultMap">
+  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.desc,
+  	       b.measure_id, b.measure 
+  	FROM SENSOR a, MEASURE b
+  	WHERE a.sensor_id = b.sensor_id
+  </select>
+  
+  <select id="getSensorMeasure_org" resultType="sensorMeasure">
+  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.desc,
+  	       b.measure_id, b.measure 
+  	FROM SENSOR a, MEASURE b
+  	WHERE a.sensor_id = b.sensor_id
+  </select>
+  
+  <!-- 센서 측정치 입 -->
+  <insert id="insertMeasure" parameterType="measure">
+  	INSERT INTO MEASURE (sensor_id, measure, reg_dt)
+  		values (#{sensor_id}, #{measure}, now())
+  </insert>
+</mapper>
