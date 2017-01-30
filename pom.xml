@@ -197,7 +197,7 @@
 			<groupId>org.apache.maven.plugins</groupId>      
 			<artifactId>maven-war-plugin</artifactId>        
 			<configuration>                                  
-				<webxml>src/webapp/WEB-INF/web.xml</webxml>
+				<webxml>src\webapp\WEB-INF\web.xml</webxml>
 			</configuration>                                 
 		</plugin>                                          
   	</plugins>
