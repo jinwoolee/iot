@@ -31,7 +31,7 @@ public class SensorController {
 	  * @return
 	  * @프로그램 설명 : 센서 리스트 조회
 	  */
-	@RequestMapping(value = "/sensors", method = RequestMethod.GET)
+	@RequestMapping(value = "/sensors", produces="application/json;charset=UTF-8", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Sensor> sensors(){
 		return sensorService.getSensorList(); 
