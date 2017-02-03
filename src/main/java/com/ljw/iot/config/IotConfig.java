@@ -25,6 +25,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -50,6 +51,11 @@ public class IotConfig extends WebMvcConfigurerAdapter implements TransactionMan
 //			.mediaType("json", MediaType.APPLICATION_JSON)
 //			.mediaType("xml", MediaType.APPLICATION_XML);
 //	}
+
+	@Override  
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
+		configurer.enable();
+	}
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
