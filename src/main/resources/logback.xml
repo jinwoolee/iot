@@ -2,20 +2,16 @@
 
 <configuration scan="true" scanPeriod="3 seconds">
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-    
+	
 		<layout>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</layout>
-		<root level="${root-level:-INFO}">
-    			<appender-ref ref="CONSOLE"/>
-  		</root>
 	</appender>
 
-	<logger name="ch.qos" level="ERROR"/>
-	<logger name="org.springframework" level="ERROR"/>
 	<logger name="com.ljw" level="DEBUG"/>
+	<logger name="org.springframework" level="DEBUG"/>
 	
-	<root level="WARN">
+	<root level="DEBUG">
     		<appender-ref ref="console" />
   	</root>
   	 
