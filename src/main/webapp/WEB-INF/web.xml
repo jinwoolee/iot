@@ -8,7 +8,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>com.ljw.common.config</param-value>
+		<param-value>com.ljw.common.config.AppConfig</param-value>
 	</context-param>
 	
 	
@@ -43,7 +43,7 @@
 	  	</init-param>
 	  	<init-param>
 	  		<param-name>contextConfigLocation</param-name>
-	  		<param-value>com.ljw.iot.config</param-value>
+	  		<param-value>com.ljw.iot.config.IotConfig</param-value>
 	  	</init-param>
 	  	<load-on-startup>1</load-on-startup>
 	  </servlet>

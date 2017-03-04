@@ -1,5 +1,7 @@
 package com.ljw.iot.dao;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -9,12 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.ljw.iot.config.AppConfigTest;
+import com.ljw.common.config.AppConfigTest;
+import com.ljw.iot.config.IotConfigTest;
 import com.ljw.iot.model.Sensor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={AppConfigTest.class})
+@WebAppConfiguration
+@ContextConfiguration(classes={AppConfigTest.class, IotConfigTest.class})
 public class SensorDaoTest {
 	Logger logger = LoggerFactory.getLogger(SensorDaoTest.class);
 	
@@ -23,6 +28,7 @@ public class SensorDaoTest {
 	
 	@Test
 	public void testGetSensor() {
+		assertEquals(1, 1);
 		//given
 		
 		//when

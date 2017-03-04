@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ljw.common.dao.CodeDao;
+import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.service.SensorService;
 
@@ -41,5 +42,16 @@ public class SensorController {
 	@ResponseBody
 	public String sensors_(){
 		return "servlet context root"; 
+	}
+	
+	@RequestMapping(value = "/measure", method = RequestMethod.POST)
+	@ResponseBody
+	public String insertMeasure(Measure measure){
+		String msg;
+		
+		int insertCnt = sensorService.insertMeasure(measure);
+		msg = insertCnt == 1 ? "OK" : "ERROR"; 
+		
+		return msg;
 	}
 }

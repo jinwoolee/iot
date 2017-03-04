@@ -137,6 +137,13 @@
 			<artifactId>pojomatic</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
+		<!-- maria db -->
+		<dependency>
+		    <groupId>org.mariadb.jdbc</groupId>
+		    <artifactId>mariadb-java-client</artifactId>
+		    <version>1.1.7</version>
+		</dependency>
 	
 		<!-- Jackson -->
 		<dependency>

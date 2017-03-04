@@ -14,7 +14,7 @@
     <id column="SENSOR_ID" jdbcType="BIGINT" property="sensor.sensor_id" />
     <result column="SENSOR_TYPE" jdbcType="VARCHAR" property="sensor.sensor_type" />
     <result column="SENSOR_NAME" jdbcType="VARCHAR" property="sensor.sensor_name" />
-    <result column="DESC" jdbcType="VARCHAR" property="sensor.desc" />
+    <result column="EXPLAN" jdbcType="VARCHAR" property="sensor.explan" />
     <collection  property="measureList" ofType="measure">
      <id column="MEASURE_ID" property="measure_id"/>
   	 <result column="MEASURE" property="measure"/>
@@ -26,7 +26,7 @@
   <!-- 센서 정보 조회 -->
   <select id="getSensorList" resultMap="sensorResultMap">
     SELECT
- 		sensor_id, sensor_type, sensor_name, desc, reg_dt
+ 		sensor_id, sensor_type, sensor_name, explan, reg_dt
     FROM SENSOR
   </select>
   
@@ -39,14 +39,14 @@
  
  <!-- 센서별 측치 조회 -->
  <select id="getSensorMeasure" resultMap="sensorMeasureResultMap">
-  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.desc,
+  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.explan,
   	       b.measure_id, b.measure 
   	FROM SENSOR a, MEASURE b
   	WHERE a.sensor_id = b.sensor_id
   </select>
   
   <select id="getSensorMeasure_org" resultType="sensorMeasure">
-  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.desc,
+  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.explan,
   	       b.measure_id, b.measure 
   	FROM SENSOR a, MEASURE b
   	WHERE a.sensor_id = b.sensor_id

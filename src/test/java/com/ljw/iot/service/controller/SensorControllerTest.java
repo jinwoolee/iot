@@ -19,12 +19,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import com.ljw.iot.config.AppConfigTest;
+import com.ljw.common.config.AppConfig;
+import com.ljw.iot.config.IotConfigTest;
 import com.ljw.iot.controller.SensorController;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = { AppConfigTest.class})
+@ContextConfiguration(classes = { AppConfig.class, IotConfigTest.class})
 public class SensorControllerTest {
 	Logger logger = LoggerFactory.getLogger(SensorControllerTest.class);
 
@@ -51,5 +52,23 @@ public class SensorControllerTest {
 				//.accept(MediaType.valueOf("text/plain;charset=UTF-8"));
 		this.mockMvc.perform(requestBuilder).andDo(print())
 				.andExpect(status().isOk());
+	}
+	
+	//측정치 입력 테스트
+	@Test
+	public void testInsertMeasure() throws Exception{
+		//given
+		//Measure measure = new Measure("1", 1262.83d);
+		
+		//when
+		MockHttpServletRequestBuilder requestBuilder 
+						= MockMvcRequestBuilders
+							.post("/sensor/measure")
+							.accept(MediaType.APPLICATION_JSON)
+							.param("sensor_id", "1")
+							.param("measure", "1234");
+		//then
+		this.mockMvc.perform(requestBuilder).andDo(print())
+		.andExpect(status().isOk());
 	}
 }

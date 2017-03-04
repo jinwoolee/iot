@@ -6,7 +6,7 @@ public class Sensor {
 	private	int		sensor_id;		//센서ID
 	private	String	sensor_type;		//센서구분(DUST : 먼지센서)
 	private	String	sensor_name;		//센서이름	
-	private	String	desc;			//센서설명
+	private	String	explan;			//센서설명
 	private	Date		reg_dt;			//등록일시
 	
 	public Sensor(){
@@ -36,12 +36,12 @@ public class Sensor {
 		this.sensor_name = sensor_name;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getExplan() {
+		return explan;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setExplan(String explan) {
+		this.explan = explan;
 	}
 
 	public Date getReg_dt() {
@@ -55,6 +55,7 @@ public class Sensor {
 	@Override
 	public String toString() {
 		return "Sensor [sensor_id=" + sensor_id + ", sensor_type=" + sensor_type + ", sensor_name=" + sensor_name
-				+ ", desc=" + desc + ", reg_dt=" + reg_dt + "]";
+				+ ", explan=" + explan + ", reg_dt=" + reg_dt + "]";
 	}
+
 }
