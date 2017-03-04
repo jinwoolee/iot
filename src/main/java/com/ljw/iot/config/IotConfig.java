@@ -1,9 +1,5 @@
 package com.ljw.iot.config;
 
-import javax.sql.DataSource;
-
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
