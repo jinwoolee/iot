@@ -35,7 +35,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 												  @Filter(Controller.class),
 												  @Filter(ControllerAdvice.class)})
 @Configuration
-@PropertySource(value={"classpath:com/ljw/common/config/db.properties"})
+//@PropertySource(value={"classpath:com/ljw/common/config/db.properties"})
 public class AppConfig extends WebMvcConfigurerAdapter implements TransactionManagementConfigurer{
 	@Bean
 	public DataSource dataSource() {
