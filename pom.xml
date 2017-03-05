@@ -144,6 +144,15 @@
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>1.1.7</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-dbcp -->
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-dbcp</artifactId>
+		    <version>7.0.57</version>
+		    <scope>compile</scope>
+		</dependency>
+				
 	
 		<!-- Jackson -->
 		<dependency>
