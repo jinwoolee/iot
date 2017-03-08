@@ -7,5 +7,7 @@
      <typeAlias alias="sensor" type="com.ljw.iot.model.Sensor" />
      <typeAlias alias="measure" type="com.ljw.iot.model.Measure" />
      <typeAlias alias="sensorMeasure" type="com.ljw.iot.model.SensorMeasure" />
+     
+     <typeAlias alias="sensorVo" type="com.ljw.iot.model.SensorVo" />
 </typeAliases>
 </configuration>

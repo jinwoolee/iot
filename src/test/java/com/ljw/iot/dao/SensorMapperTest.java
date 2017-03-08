@@ -2,8 +2,11 @@ package com.ljw.iot.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,14 +19,33 @@ import com.ljw.common.config.AppConfigTest;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.model.SensorMeasure;
+import com.ljw.iot.model.SensorVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={AppConfigTest.class})
 public class SensorMapperTest {
 	Logger logger = LoggerFactory.getLogger(SensorMapperTest.class);
+	//DbMaintainer dbMaintainer; 
 	
 	@Autowired
 	SensorMapper sensorMapper;
+	
+	@Before
+	public void setup(){
+//		 try {  
+//	        // 프로퍼티 객체 생성
+//	        Properties props = new Properties();
+//	         
+//	        // 프로퍼티 파일 스트림에 담기
+//	        FileInputStream fis = new FileInputStream("src/com/ljw/iot/config/unitils.properties");
+//	         
+//	        // 프로퍼티 파일 로딩
+//	        props.load(new java.io.BufferedInputStream(fis));
+//			MainFactory mainFactory = new MainFactory(props);
+//			dbMaintainer = mainFactory.createDbMaintainer();
+//			dbMaintainer.updateDatabase(false);
+//		 }catch(Exception e){e.printStackTrace();}
+	}
 	
 	@Test
 	public void testGetSensor() {
@@ -52,9 +74,12 @@ public class SensorMapperTest {
 	@Test
 	public void testGetSensorMeasure(){
 		//given
+		SensorVo vo = new SensorVo(1);
+		vo.setSt_dt("20170307");
+		vo.setSt_tm("0000");
 		
 		//when
-		List<SensorMeasure> sensorMeasureList = sensorMapper.getSensorMeasure();
+		List<SensorMeasure> sensorMeasureList = sensorMapper.getSensorMeasure(vo);
 		logger.debug("sensorMeasureList : " + sensorMeasureList.size());
 		for(SensorMeasure sensorMeasure : sensorMeasureList)
 			logger.debug(sensorMeasure.toString());

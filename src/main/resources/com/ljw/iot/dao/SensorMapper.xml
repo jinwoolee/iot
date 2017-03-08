@@ -37,22 +37,17 @@
    FROM MEASURE
  </select>
  
- <!-- 센서별 측치 조회 -->
- <select id="getSensorMeasure" resultMap="sensorMeasureResultMap">
+ <!-- 센서별 측정치 조회 -->
+ <select id="getSensorMeasure" parameterType="sensorVo" resultMap="sensorMeasureResultMap">
   	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.explan,
   	       b.measure_id, b.measure 
   	FROM SENSOR a, MEASURE b
   	WHERE a.sensor_id = b.sensor_id
+  	  and a.sensor_id = #{sensor_id}
+  	  and b.reg_dt between STR_TO_DATE(#{st_dtm}, '%Y%m%d%H%i') and STR_TO_DATE(#{ed_dtm}, '%Y%m%d%H%i')
   </select>
   
-  <select id="getSensorMeasure_org" resultType="sensorMeasure">
-  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.explan,
-  	       b.measure_id, b.measure 
-  	FROM SENSOR a, MEASURE b
-  	WHERE a.sensor_id = b.sensor_id
-  </select>
-  
-  <!-- 센서 측정치 입 -->
+  <!-- 센서 측정치 입력-->
   <insert id="insertMeasure" parameterType="measure">
   	INSERT INTO MEASURE (sensor_id, measure, reg_dt)
   		values (#{sensor_id}, #{measure}, now())

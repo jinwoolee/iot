@@ -64,7 +64,7 @@ public class SensorServiceImpl implements SensorService{
 	  */
 	@Override
 	public List<SensorMeasure> getSensorMeasure() {
-		return sensorMapper.getSensorMeasure();
+		return sensorMapper.getSensorMeasure(null);
 	}
 
 	/**

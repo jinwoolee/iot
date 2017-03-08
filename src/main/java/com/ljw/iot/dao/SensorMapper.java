@@ -5,6 +5,7 @@ package com.ljw.iot.dao;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.model.SensorMeasure;
+import com.ljw.iot.model.SensorVo;
 
 public interface SensorMapper {
 
@@ -12,7 +13,7 @@ public interface SensorMapper {
 	
 	List<Measure> getMesureList();
 
-	List<SensorMeasure> getSensorMeasure();
+	List<SensorMeasure> getSensorMeasure(SensorVo sensorVo);
 
 	int insertMeasure(Measure measure);
 	
