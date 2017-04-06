@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/jquery-3.1.1.js"></script>
+<script src="js/jquery-ui-1.12.1/jquery-ui.js"></script>
+
+<script>
+$(document).ready(function(){
+	$("#datepicker1").datepicker({onClose : function(){ return false; console.log("test");}});
+	$("#datepicker2").datepicker();
+	
+	$("#datepicker1").datepicker("show");
+	$("#datepicker2").datepicker("show");
+	
+	//$("#datepicker1").focus();
+	//$("#datepicker2").focus()
+});
+</script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<input type="text" id='datepicker1'/>
+<input type="text" id='datepicker2'/> 
+
+</body>
+</html>

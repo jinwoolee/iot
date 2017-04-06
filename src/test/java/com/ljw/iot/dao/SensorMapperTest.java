@@ -2,9 +2,7 @@ package com.ljw.iot.dao;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +54,7 @@ public class SensorMapperTest {
 		
 		//then
 		for(Sensor sensor : sensorList)
-			logger.debug(sensor.toString());
+			logger.info("{}", sensor.toString());
 	}
 	
 	@Test
@@ -68,7 +66,7 @@ public class SensorMapperTest {
 		
 		//then
 		for(Measure mesure : mesureList)
-			logger.debug(mesure.toString());
+			logger.info("{}", mesure.toString());
 	}
 	
 	@Test
@@ -80,9 +78,9 @@ public class SensorMapperTest {
 		
 		//when
 		List<SensorMeasure> sensorMeasureList = sensorMapper.getSensorMeasure(vo);
-		logger.debug("sensorMeasureList : " + sensorMeasureList.size());
+		logger.info("sensorMeasureList {}: ", sensorMeasureList.size());
 		for(SensorMeasure sensorMeasure : sensorMeasureList)
-			logger.debug(sensorMeasure.toString());
+			logger.info("{}", sensorMeasure.toString());
 		
 		//then
 	}

@@ -6,12 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ljw.common.dao.CodeDao;
 import com.ljw.iot.dao.SensorMapper;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.model.SensorMeasure;
+import com.ljw.iot.model.SensorVo;
 import com.ljw.iot.service.SensorService;
 
 @Service
@@ -63,8 +65,8 @@ public class SensorServiceImpl implements SensorService{
 	  * @프로그램 설명 : 센서별 측정치 조회
 	  */
 	@Override
-	public List<SensorMeasure> getSensorMeasure() {
-		return sensorMapper.getSensorMeasure(null);
+	public List<SensorMeasure> getSensorMeasure(SensorVo sensorVo) {
+		return sensorMapper.getSensorMeasure(sensorVo);
 	}
 
 	/**
@@ -78,6 +80,7 @@ public class SensorServiceImpl implements SensorService{
 	  * @프로그램 설명 : 측정치 입력 
 	  */
 	@Override
+	@Transactional
 	public int insertMeasure(Measure measure) {
 		return sensorMapper.insertMeasure(measure);
 	}

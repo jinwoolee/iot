@@ -1,7 +1,5 @@
 package com.ljw.iot.model;
 
-import java.sql.Date;
-import java.util.Arrays;
 import java.util.List;
 
 public class SensorMeasure {

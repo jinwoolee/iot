@@ -7,6 +7,9 @@ public class SensorVo {
 	private	String	st_tm;
 	private	String	ed_tm;
 	
+	private	int		page;
+	private	int		pageSize;
+	
 	public SensorVo(){
 	}
 	public SensorVo(int sensor_id){
@@ -52,9 +55,26 @@ public class SensorVo {
 			setEd_tm("2400");
 		return getEd_dt() + getEd_tm();
 	}
+	
+	public int getPage() {
+		if(page == 0)
+			page = 1;
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getPageSize() {
+		if(pageSize == 0)
+			pageSize = 10;
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
 	@Override
 	public String toString() {
 		return "SensorVo [sensor_id=" + sensor_id + ", st_dt=" + st_dt + ", ed_dt=" + ed_dt + ", st_tm=" + st_tm
-				+ ", ed_tm=" + ed_tm + "]";
+				+ ", ed_tm=" + ed_tm + ", page=" + page + ", pageSize=" + pageSize + "]";
 	}
 }

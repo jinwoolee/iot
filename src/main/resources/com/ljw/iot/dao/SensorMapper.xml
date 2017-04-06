@@ -39,12 +39,16 @@
  
  <!-- 센서별 측정치 조회 -->
  <select id="getSensorMeasure" parameterType="sensorVo" resultMap="sensorMeasureResultMap">
-  	SELECT a.sensor_id, a.sensor_type, a.sensor_name, a.explan,
-  	       b.measure_id, b.measure 
-  	FROM SENSOR a, MEASURE b
-  	WHERE a.sensor_id = b.sensor_id
-  	  and a.sensor_id = #{sensor_id}
-  	  and b.reg_dt between STR_TO_DATE(#{st_dtm}, '%Y%m%d%H%i') and STR_TO_DATE(#{ed_dtm}, '%Y%m%d%H%i')
+  	  select a.sensor_id, a.sensor_type, a.sensor_name, a.explan, b.measure_id, b.measure 
+		from SENSOR as a, MEASURE as b,
+			(select measure_id 
+			  from MEASURE where sensor_id = #{sensor_id}
+			   and reg_dt between STR_TO_DATE(#{st_dtm}, '%Y%m%d%H%i') and STR_TO_DATE(#{ed_dtm}, '%Y%m%d%H%i')
+			 order by reg_dt
+			 limit (#{page}-1)*#{pageSize}, #{pageSize}) as c
+		WHERE a.sensor_id = b.sensor_id and
+			a.sensor_id = #{sensor_id} and 
+			b.measure_id = c.measure_id
   </select>
   
   <!-- 센서 측정치 입력-->

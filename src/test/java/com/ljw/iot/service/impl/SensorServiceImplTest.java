@@ -16,12 +16,13 @@ import com.ljw.common.config.AppConfigTest;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.model.SensorMeasure;
+import com.ljw.iot.model.SensorVo;
 import com.ljw.iot.service.SensorService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={AppConfigTest.class})
-public class SensorServiceTest {
-	Logger logger = LoggerFactory.getLogger(SensorServiceTest.class);
+public class SensorServiceImplTest {
+	Logger logger = LoggerFactory.getLogger(SensorServiceImplTest.class);
 	
 	@Autowired
 	private SensorService sensorService;
@@ -58,12 +59,15 @@ public class SensorServiceTest {
 	@Test
 	public void testGetSensorMeasure(){
 		//given
+		SensorVo vo = new SensorVo(1);
+		vo.setSt_dt("20170307");
+		vo.setSt_tm("0000");
 		
 		//when
-		List<SensorMeasure> sensorMeasureList = sensorService.getSensorMeasure();
-		logger.debug("sensorMeasureList : " + sensorMeasureList.size());
+		List<SensorMeasure> sensorMeasureList = sensorService.getSensorMeasure(vo);
+		logger.info("sensorMeasureList {}: ", sensorMeasureList.size());
 		for(SensorMeasure sensorMeasure : sensorMeasureList)
-			logger.debug(sensorMeasure.toString());
+			logger.info("{}", sensorMeasure.toString());
 		
 		//then
 	}
