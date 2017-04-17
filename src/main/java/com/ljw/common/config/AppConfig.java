@@ -56,6 +56,9 @@ public class AppConfig extends WebMvcConfigurerAdapter implements TransactionMan
 		ds.setUrl(env.getProperty("db.url"));
 		ds.setUsername(env.getProperty("db.user"));
 		ds.setPassword(env.getProperty("db.password"));
+		ds.setValidationQuery("select now()");
+		ds.setTestWhileIdle(true);
+		ds.setTimeBetweenEvictionRunsMillis(60000);
 		return ds;
 	}
 
