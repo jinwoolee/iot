@@ -11,6 +11,7 @@ public class SensorVo {
 	private	int		pageSize;
 	
 	public SensorVo(){
+		//test
 	}
 	public SensorVo(int sensor_id){
 		this.sensor_id	=	sensor_id;
