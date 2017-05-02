@@ -1,6 +1,6 @@
 package com.ljw.iot.dao;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -45,6 +45,14 @@ public class SensorMapperTest {
 //		 }catch(Exception e){e.printStackTrace();}
 	}
 	
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 센서 리스트 조회
+	  */
 	@Test
 	public void testGetSensor() {
 		//given
@@ -57,6 +65,14 @@ public class SensorMapperTest {
 			logger.info("{}", sensor.toString());
 	}
 	
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 측정치 조회
+	  */
 	@Test
 	public void testGetMesureList(){
 		//given
@@ -69,6 +85,14 @@ public class SensorMapperTest {
 			logger.info("{}", mesure.toString());
 	}
 	
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 센서별 측정치 조회
+	  */
 	@Test
 	public void testGetSensorMeasure(){
 		//given
@@ -84,7 +108,15 @@ public class SensorMapperTest {
 		
 		//then
 	}
-	
+
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 측정치 입력
+	  */
 	@Test
 	public void testInsertMeasure(){
 		//given
@@ -95,5 +127,93 @@ public class SensorMapperTest {
 		
 		//then
 		assertEquals(1, insertCnt);
+	}
+	
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 월별 측정치 조회
+	  */
+	@Test
+	public void testGetMonthlyMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setSt_dt("20170401");
+		sensorVo.setEd_dt("20170430");
+		
+		//when
+		List<Measure> measureList = sensorMapper.getMonthlyMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
+	}
+	
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 일별 측정치 조회
+	  */
+	@Test
+	public void testGetDailyMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setSt_dt("20170401");
+		sensorVo.setEd_dt("20170430");
+		
+		//when
+		List<Measure> measureList = sensorMapper.getDailyMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
+	}
+	
+	/**
+	  * @FileName : SensorMapperTest.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 2.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @프로그램 설명 : 시간별 측정치 조회
+	  */
+	@Test
+	public void testGetTimelyMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setSt_dt("20170401");
+		sensorVo.setEd_dt("20170430");
+		
+		//when
+		List<Measure> measureList = sensorMapper.getTimelyMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
+	}
+	
+	@Test
+	public void testGet5MinMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setSt_dt("20170403");
+		sensorVo.setEd_dt("20170404");
+		
+		//when
+		List<Measure> measureList = sensorMapper.get5MinMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
 	}
 }

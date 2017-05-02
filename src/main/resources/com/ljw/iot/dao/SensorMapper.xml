@@ -22,7 +22,6 @@
   </resultMap>
   
   
-  
   <!-- 센서 정보 조회 -->
   <select id="getSensorList" resultMap="sensorResultMap">
     SELECT
@@ -41,7 +40,7 @@
  <select id="getSensorMeasure" parameterType="sensorVo" resultMap="sensorMeasureResultMap">
   	  select a.sensor_id, a.sensor_type, a.sensor_name, a.explan, b.measure_id, b.measure 
 		from SENSOR as a, MEASURE as b,
-			(select measure_id 
+			(select measure_id
 			  from MEASURE where sensor_id = #{sensor_id}
 			   and reg_dt between STR_TO_DATE(#{st_dtm}, '%Y%m%d%H%i') and STR_TO_DATE(#{ed_dtm}, '%Y%m%d%H%i')
 			 order by reg_dt
@@ -50,10 +49,50 @@
 			a.sensor_id = #{sensor_id} and 
 			b.measure_id = c.measure_id
   </select>
-  
-  <!-- 센서 측정치 입력-->
-  <insert id="insertMeasure" parameterType="measure">
-  	INSERT INTO MEASURE (sensor_id, measure, reg_dt)
+
+<!-- 센서별 월단위 측정 평균조회 -->
+<select id="getMonthlyMeasure" parameterType="sensorVo" resultType="measure">
+select sensor_id, date_format(reg_dt, '%Y-%m') reg_dt, round(avg(measure)) measure 
+ from MEASURE
+where sensor_id = #{sensor_id}
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+group by sensor_id, date_format(reg_dt, '%Y-%m') 
+order by sensor_id, date_format(reg_dt, '%Y-%m')
+</select>   
+
+<!-- 센서별 일단위 측정 평균조회 -->
+<select id="getDailyMeasure" parameterType="sensorVo" resultType="measure">
+select sensor_id, date_format(reg_dt, '%Y-%m-%d') reg_dt, round(avg(measure)) measure 
+ from MEASURE
+where sensor_id = #{sensor_id}
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+group by sensor_id, date_format(reg_dt, '%Y-%m-%d') 
+order by sensor_id, date_format(reg_dt, '%Y-%m-%d') 
+</select>    
+
+<!-- 센서별 시간단위 측정 평균조회 -->
+<select id="getTimelyMeasure" parameterType="sensorVo" resultType="measure">
+select sensor_id, date_format(reg_dt, '%Y-%m-%d %H') reg_dt, round(avg(measure)) measure 
+ from MEASURE
+where sensor_id = #{sensor_id}
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+group by sensor_id, date_format(reg_dt, '%Y-%m-%d %H') 
+order by sensor_id, date_format(reg_dt, '%Y-%m-%d %H') 
+</select> 
+ 
+<!-- 센서별 5분단위 측정 평균조회 -->
+<select id="get5MinMeasure" parameterType="sensorVo" resultType="measure">
+select sensor_id, concat(date_format(reg_dt, '%Y-%m-%d %H'), lpad(minute(reg_dt)-mod(minute(reg_dt), 5), 2, 0)) reg_dt, round(avg(measure)) measure  
+ from MEASURE
+where sensor_id = #{sensor_id}
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+group by sensor_id, concat(date_format(reg_dt, '%Y-%m-%d %H'), lpad(minute(reg_dt)-mod(minute(reg_dt), 5), 2, 0))
+order by sensor_id, concat(date_format(reg_dt, '%Y-%m-%d %H'), lpad(minute(reg_dt)-mod(minute(reg_dt), 5), 2, 0))
+</select>
+
+<!-- 센서 측정치 입력-->
+<insert id="insertMeasure" parameterType="measure">
+	INSERT INTO MEASURE (sensor_id, measure, reg_dt)
   		values (#{sensor_id}, #{measure}, now())
-  </insert>
+</insert>
 </mapper>
