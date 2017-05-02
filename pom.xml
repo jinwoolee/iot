@@ -102,12 +102,12 @@
 		</dependency>
 		
 
-    <dependency>
+    <!-- <dependency>
           <groupId>log4sql</groupId>
           <artifactId>log4sql</artifactId>
           <version>7.0.8</version>
           <scope>test</scope>
-      </dependency>
+      </dependency> -->
 	
 	
 		<dependency>
