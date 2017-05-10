@@ -201,7 +201,7 @@ public class SensorMapperTest {
 		assertTrue(measureList.size() > 0);
 	}
 	
-	@Test
+	@Test 
 	public void testGet5MinMeasure(){
 		//given
 		SensorVo sensorVo = new SensorVo(1);

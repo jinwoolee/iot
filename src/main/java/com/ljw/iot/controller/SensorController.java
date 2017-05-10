@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ljw.common.dao.CodeDao;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
+import com.ljw.iot.model.SensorVo;
 import com.ljw.iot.service.SensorService;
 
 @Controller
@@ -53,5 +55,18 @@ public class SensorController {
 		msg = insertCnt == 1 ? "OK" : "ERROR"; 
 		
 		return msg;
+	}
+	
+	@RequestMapping(value="/measureView", method = RequestMethod.POST)
+	public ModelAndView getMeasureView(SensorVo sensorVo) {
+		ModelAndView mav = new ModelAndView("sensor/measureView");
+		mav.addObject("measureList", sensorService.getMeasure(sensorVo));
+		return mav;
+	}
+	
+	@RequestMapping(value = "/getMeasure", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Measure> getMeasure(SensorVo sensorVo){
+		return sensorService.getMeasure(sensorVo);
 	}
 }

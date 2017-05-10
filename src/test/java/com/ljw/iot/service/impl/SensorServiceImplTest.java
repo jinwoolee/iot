@@ -1,6 +1,7 @@
 package com.ljw.iot.service.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -11,8 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.ljw.common.config.AppConfigTest;
+import com.ljw.iot.config.IotConfigTest;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.model.SensorMeasure;
@@ -20,7 +23,8 @@ import com.ljw.iot.model.SensorVo;
 import com.ljw.iot.service.SensorService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={AppConfigTest.class})
+@WebAppConfiguration
+@ContextConfiguration(classes = { AppConfigTest.class, IotConfigTest.class})
 public class SensorServiceImplTest {
 	Logger logger = LoggerFactory.getLogger(SensorServiceImplTest.class);
 	
@@ -83,5 +87,70 @@ public class SensorServiceImplTest {
 		
 		//then
 		assertEquals(1, insertCnt);
+	}
+	
+	//월별 측정치 조회
+	@Test
+	public void testGetMonthlyMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setSt_dt("20170401");
+		sensorVo.setEd_dt("20170430");
+		
+		//when
+		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
+	}
+	
+	//일별 측정치 조회
+	@Test
+	public void testGetDailyMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setMethod("daily");
+		
+		//when
+		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
+	}
+	
+	//시간별 측정치 조회
+	@Test
+	public void testGetTimelyMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setMethod("timely");
+		
+		//when
+		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
+	}
+	
+	//5분단위 측정치 조회
+	@Test 
+	public void testGet5MinMeasure(){
+		//given
+		SensorVo sensorVo = new SensorVo(1);
+		sensorVo.setMethod("5min");
+		
+		//when
+		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		for(Measure measure : measureList)
+			logger.debug(measure.toString());
+		
+		//then
+		assertTrue(measureList.size() > 0);
 	}
 }

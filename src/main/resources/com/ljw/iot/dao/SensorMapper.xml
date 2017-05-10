@@ -44,7 +44,7 @@
 			  from MEASURE where sensor_id = #{sensor_id}
 			   and reg_dt between STR_TO_DATE(#{st_dtm}, '%Y%m%d%H%i') and STR_TO_DATE(#{ed_dtm}, '%Y%m%d%H%i')
 			 order by reg_dt
-			 limit (#{page}-1)*#{pageSize}, #{pageSize}) as c
+			 limit #{pageStart}, #{pageSize} ) as c
 		WHERE a.sensor_id = b.sensor_id and
 			a.sensor_id = #{sensor_id} and 
 			b.measure_id = c.measure_id

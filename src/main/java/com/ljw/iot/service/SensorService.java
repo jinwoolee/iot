@@ -17,4 +17,16 @@ public interface SensorService {
 
 	int insertMeasure(Measure measure);
 
+	/**
+	  * @FileName : SensorService.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 10.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @param sensorVo
+	  * @return
+	  * @프로그램 설명 : 측정치 조회
+	  */
+	List<Measure> getMeasure(SensorVo sensorVo);
+
 }

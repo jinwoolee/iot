@@ -1,5 +1,9 @@
 package com.ljw.iot.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class SensorVo {
 	private	int		sensor_id;			
 	private	String	st_dt;
@@ -10,8 +14,9 @@ public class SensorVo {
 	private	int		page;
 	private	int		pageSize;
 	
+	private	String	method;
+	
 	public SensorVo(){
-		//test
 	}
 	public SensorVo(int sensor_id){
 		this.sensor_id	=	sensor_id;
@@ -23,13 +28,27 @@ public class SensorVo {
 		this.sensor_id = sensor_id;
 	}
 	public String getSt_dt() {
-		return st_dt;
+		
+		if(st_dt == null){
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.DAY_OF_MONTH, 1);
+			System.out.println(c.toString());
+			return (new SimpleDateFormat("yyyyMMdd").format(c.getTime()));
+		}
+		else
+			return st_dt;
 	}
 	public void setSt_dt(String st_dt) {
 		this.st_dt = st_dt;
 	}
 	public String getEd_dt() {
-		return ed_dt;
+		if(ed_dt == null){
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.DAY_OF_MONTH, c.getMaximum(Calendar.DAY_OF_MONTH));
+			return (new SimpleDateFormat("yyyyMMdd").format(c.getTime()));
+		}
+		else
+			return ed_dt;
 	}
 	public void setEd_dt(String ed_dt) {
 		this.ed_dt = ed_dt;
@@ -72,6 +91,15 @@ public class SensorVo {
 	}
 	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
+	}
+	public int getPageStart(){
+		return (getPage()-1)*getPageSize();
+	}
+	public String getMethod() {
+		return method == null ? "monthly" : method;
+	}
+	public void setMethod(String method) {
+		this.method = method;
 	}
 	@Override
 	public String toString() {

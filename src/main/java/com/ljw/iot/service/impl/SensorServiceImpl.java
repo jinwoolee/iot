@@ -84,4 +84,28 @@ public class SensorServiceImpl implements SensorService{
 	public int insertMeasure(Measure measure) {
 		return sensorMapper.insertMeasure(measure);
 	}
+
+	/**
+	  * @FileName : SensorServiceImpl.java
+	  * @Project : iot
+	  * @Date : 2017. 5. 10.
+	  * @작성자 : jw
+	  * @변경이력 :
+	  * @param sensorVo
+	  * @return
+	  * @프로그램 설명 : 측정치 조회 
+	  */
+	@Override
+	public List<Measure> getMeasure(SensorVo sensorVo) {
+		if("monthly".equals(sensorVo.getMethod()))
+			return sensorMapper.getMonthlyMeasure(sensorVo);
+		else if("daily".equals(sensorVo.getMethod()))
+			return sensorMapper.getDailyMeasure(sensorVo);
+		else if("timely".equals(sensorVo.getMethod()))
+			return sensorMapper.getTimelyMeasure(sensorVo);
+		else if("5min".equals(sensorVo.getMethod()))
+			return sensorMapper.get5MinMeasure(sensorVo);
+		else
+			return sensorMapper.getMonthlyMeasure(sensorVo);
+	}
 }
