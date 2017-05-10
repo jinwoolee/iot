@@ -105,7 +105,7 @@ public class SensorControllerTest {
 		//when
 		MockHttpServletRequestBuilder requestBuilder 
 				= MockMvcRequestBuilders
-					.post("/sensor/getMeasure")
+					.get("/sensor/getMeasure")
 					.accept(MediaType.APPLICATION_JSON)
 					.param("sensor_id", "1")
 					.param("st_dt", "20170401")
@@ -124,7 +124,7 @@ public class SensorControllerTest {
 		//when
 		MockHttpServletRequestBuilder requestBuilder 
 				= MockMvcRequestBuilders
-					.post("/sensor/getMeasure")
+					.get("/sensor/getMeasure")
 					.accept(MediaType.APPLICATION_JSON)
 					.param("sensor_id", "1")
 					.param("st_dt", "20170401")
@@ -143,7 +143,7 @@ public class SensorControllerTest {
 		//when
 		MockHttpServletRequestBuilder requestBuilder 
 				= MockMvcRequestBuilders
-					.post("/sensor/getMeasure")
+					.get("/sensor/getMeasure")
 					.accept(MediaType.APPLICATION_JSON)
 					.param("sensor_id", "1")
 					.param("st_dt", "20170401")
@@ -162,7 +162,7 @@ public class SensorControllerTest {
 		//when
 		MockHttpServletRequestBuilder requestBuilder 
 				= MockMvcRequestBuilders
-					.post("/sensor/getMeasure")
+					.get("/sensor/getMeasure")
 					.accept(MediaType.APPLICATION_JSON)
 					.param("sensor_id", "1")
 					.param("st_dt", "20170402")

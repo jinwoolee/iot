@@ -57,14 +57,14 @@ public class SensorController {
 		return msg;
 	}
 	
-	@RequestMapping(value="/measureView", method = RequestMethod.POST)
+	@RequestMapping(value="/measureView", method = RequestMethod.GET)
 	public ModelAndView getMeasureView(SensorVo sensorVo) {
 		ModelAndView mav = new ModelAndView("sensor/measureView");
 		mav.addObject("measureList", sensorService.getMeasure(sensorVo));
 		return mav;
 	}
 	
-	@RequestMapping(value = "/getMeasure", method = RequestMethod.POST)
+	@RequestMapping(value = "/getMeasure", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Measure> getMeasure(SensorVo sensorVo){
 		return sensorService.getMeasure(sensorVo);
