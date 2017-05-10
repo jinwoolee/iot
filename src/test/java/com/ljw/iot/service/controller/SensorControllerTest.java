@@ -78,7 +78,7 @@ public class SensorControllerTest {
 		.andExpect(status().isOk());
 	}
 	
-	//측정치 조회화면  
+	//측정치 조회화면   
 	@Test
 	public void testGetMeasureView(){
 		//given
