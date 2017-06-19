@@ -1,6 +1,7 @@
 package com.ljw.iot.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
@@ -27,6 +28,6 @@ public interface SensorService {
 	  * @return
 	  * @프로그램 설명 : 측정치 조회
 	  */
-	List<Measure> getMeasure(SensorVo sensorVo);
+	Map<String, List<Measure>> getMeasure(SensorVo sensorVo);
 
 }

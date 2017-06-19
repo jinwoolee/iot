@@ -1,6 +1,8 @@
 package com.ljw.iot.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,16 +98,28 @@ public class SensorServiceImpl implements SensorService{
 	  * @프로그램 설명 : 측정치 조회 
 	  */
 	@Override
-	public List<Measure> getMeasure(SensorVo sensorVo) {
+	public Map<String, List<Measure>> getMeasure(SensorVo sensorVo) {
+		Map<String, List<Measure>> resultMap = new HashMap<String, List<Measure>>();
 		if("monthly".equals(sensorVo.getMethod()))
-			return sensorMapper.getMonthlyMeasure(sensorVo);
+			resultMap.put("monthly", sensorMapper.getMonthlyMeasure(sensorVo));
 		else if("daily".equals(sensorVo.getMethod()))
-			return sensorMapper.getDailyMeasure(sensorVo);
+			resultMap.put("daily", sensorMapper.getDailyMeasure(sensorVo));
 		else if("timely".equals(sensorVo.getMethod()))
-			return sensorMapper.getTimelyMeasure(sensorVo);
+			resultMap.put("timely", sensorMapper.getTimelyMeasure(sensorVo));
 		else if("5min".equals(sensorVo.getMethod()))
-			return sensorMapper.get5MinMeasure(sensorVo);
-		else
-			return sensorMapper.getMonthlyMeasure(sensorVo);
+			resultMap.put("5min", sensorMapper.get5MinMeasure(sensorVo));
+		else if("dashBoard".equals(sensorVo.getMethod())){
+			resultMap.put("timely", sensorMapper.getTimelyMeasure(sensorVo));
+			
+			sensorVo.setSt_dt(sensorVo.getSt_dt().substring(0, 6) + "01");
+			sensorVo.setEd_dt(sensorVo.getSt_dt().substring(0, 6) + "31");
+			resultMap.put("daily", sensorMapper.getDailyMeasure(sensorVo));
+			
+			sensorVo.setSt_dt(sensorVo.getSt_dt().substring(0, 4) + "0101");
+			sensorVo.setEd_dt(sensorVo.getSt_dt().substring(0, 4) + "1231");
+			resultMap.put("monthly", sensorMapper.getMonthlyMeasure(sensorVo));
+		}
+		
+		return resultMap;
 	}
 }

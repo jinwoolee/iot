@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -98,7 +99,8 @@ public class SensorServiceImplTest {
 		sensorVo.setEd_dt("20170430");
 		
 		//when
-		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		Map<String, List<Measure>> resultMap = sensorService.getMeasure(sensorVo);
+		List<Measure> measureList = resultMap.get("monthly");
 		for(Measure measure : measureList)
 			logger.debug(measure.toString());
 		
@@ -114,7 +116,8 @@ public class SensorServiceImplTest {
 		sensorVo.setMethod("daily");
 		
 		//when
-		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		Map<String, List<Measure>> resultMap = sensorService.getMeasure(sensorVo);
+		List<Measure> measureList = resultMap.get("daily");
 		for(Measure measure : measureList)
 			logger.debug(measure.toString());
 		
@@ -130,7 +133,8 @@ public class SensorServiceImplTest {
 		sensorVo.setMethod("timely");
 		
 		//when
-		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		Map<String, List<Measure>> resultMap = sensorService.getMeasure(sensorVo);
+		List<Measure> measureList = resultMap.get("timely");
 		for(Measure measure : measureList)
 			logger.debug(measure.toString());
 		
@@ -146,7 +150,8 @@ public class SensorServiceImplTest {
 		sensorVo.setMethod("5min");
 		
 		//when
-		List<Measure> measureList = sensorService.getMeasure(sensorVo);
+		Map<String, List<Measure>> resultMap = sensorService.getMeasure(sensorVo);
+		List<Measure> measureList = resultMap.get("5min");
 		for(Measure measure : measureList)
 			logger.debug(measure.toString());
 		

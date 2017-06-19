@@ -52,30 +52,30 @@
 
 <!-- 센서별 월단위 측정 평균조회 -->
 <select id="getMonthlyMeasure" parameterType="sensorVo" resultType="measure">
-select sensor_id, date_format(reg_dt, '%Y-%m') reg_dt, round(avg(measure)) measure 
+select sensor_id, date_format(reg_dt, '%c') dt, round(avg(measure)) measure 
  from MEASURE
 where sensor_id = #{sensor_id}
-  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(CONCAT(#{ed_dt}, ' 235959'), '%Y%m%d  %H%i%s')
 group by sensor_id, date_format(reg_dt, '%Y-%m') 
 order by sensor_id, date_format(reg_dt, '%Y-%m')
 </select>   
 
 <!-- 센서별 일단위 측정 평균조회 -->
 <select id="getDailyMeasure" parameterType="sensorVo" resultType="measure">
-select sensor_id, date_format(reg_dt, '%Y-%m-%d') reg_dt, round(avg(measure)) measure 
+select sensor_id, date_format(reg_dt, '%e') dt, round(avg(measure)) measure 
  from MEASURE
 where sensor_id = #{sensor_id}
-  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(CONCAT(#{ed_dt}, ' 235959'), '%Y%m%d  %H%i%s')
 group by sensor_id, date_format(reg_dt, '%Y-%m-%d') 
 order by sensor_id, date_format(reg_dt, '%Y-%m-%d') 
 </select>    
 
 <!-- 센서별 시간단위 측정 평균조회 -->
 <select id="getTimelyMeasure" parameterType="sensorVo" resultType="measure">
-select sensor_id, date_format(reg_dt, '%Y-%m-%d %H') reg_dt, round(avg(measure)) measure 
+select sensor_id, date_format(reg_dt, '%H') dt, round(avg(measure)) measure 
  from MEASURE
 where sensor_id = #{sensor_id}
-  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(#{ed_dt}, '%Y%m%d')
+  and reg_dt between str_to_date(#{st_dt}, '%Y%m%d') and str_to_date(CONCAT(#{ed_dt}, ' 235959'), '%Y%m%d  %H%i%s')
 group by sensor_id, date_format(reg_dt, '%Y-%m-%d %H') 
 order by sensor_id, date_format(reg_dt, '%Y-%m-%d %H') 
 </select> 

@@ -5,6 +5,7 @@ public class Measure {
 	private	String	sensor_id;		//sensor id
 	private	Double	measure;			//측정값
 	private	String	reg_dt;			//측정값 등록일
+	private	String	dt;				//조회일정
 	
 	public Measure(String sensor_id, Double measure){
 		this.sensor_id	=	sensor_id;
@@ -36,9 +37,15 @@ public class Measure {
 	public void setReg_dt(String reg_dt) {
 		this.reg_dt = reg_dt;
 	}
+	public String getDt() {
+		return dt;
+	}
+	public void setDt(String dt) {
+		this.dt = dt;
+	}
 	@Override
 	public String toString() {
 		return "Measure [measure_id=" + measure_id + ", sensor_id=" + sensor_id + ", measure=" + measure + ", reg_dt="
-				+ reg_dt + "]";
+				+ reg_dt + ", dt=" + dt + "]";
 	}
 }

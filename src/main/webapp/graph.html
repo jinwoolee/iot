@@ -29,7 +29,7 @@ var line = d3.line()
 
 context.translate(margin.left, margin.top);
 
-d3.tsv("data.tsv", function(d) {
+d3.json("data.json", function(d) {
   d.date = parseTime(d.date);
   d.close = +d.close;
   return d;

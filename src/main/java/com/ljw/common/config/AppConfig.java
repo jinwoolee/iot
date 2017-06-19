@@ -27,8 +27,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @MapperScan("com.ljw.iot.dao")
 @ComponentScan(basePackages = {"com.ljw.common"}, useDefaultFilters = false, 
@@ -113,4 +116,20 @@ public class AppConfig extends WebMvcConfigurerAdapter implements TransactionMan
 		converter.setPrettyPrint(true);
 		return converter;
 	}
+	
+
+    /**
+     * JSP를 뷰로 사용하는 뷰 리졸버 등록
+     */
+    @Bean
+    public 
+    ViewResolver viewResolver() {
+ 
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/view/");
+        viewResolver.setSuffix(".jsp");
+ 
+        return viewResolver;
+    }
 }

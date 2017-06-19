@@ -93,7 +93,7 @@ public class SensorControllerTest {
 			logger.info(measure.toString());
 		
 		//then
-		assertEquals("sensor/measureView", mav.getViewName());
+		assertEquals("view/sensor/measureView.jsp", mav.getViewName());
 		assertTrue(measureList.size() > 0);
 	}
 	

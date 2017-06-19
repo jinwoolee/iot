@@ -1,6 +1,7 @@
 package com.ljw.iot.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,14 +60,14 @@ public class SensorController {
 	
 	@RequestMapping(value="/measureView", method = RequestMethod.GET)
 	public ModelAndView getMeasureView(SensorVo sensorVo) {
-		ModelAndView mav = new ModelAndView("sensor/measureView");
-		mav.addObject("measureList", sensorService.getMeasure(sensorVo));
+		ModelAndView mav = new ModelAndView("/sensor/measureView");
+		//mav.addObject("measureList", sensorService.getMeasure(sensorVo));
 		return mav;
 	}
 	
 	@RequestMapping(value = "/getMeasure", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Measure> getMeasure(SensorVo sensorVo){
+	public Map<String, List<Measure>> getMeasure(SensorVo sensorVo){
 		return sensorService.getMeasure(sensorVo);
 	}
 }
