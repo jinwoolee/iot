@@ -216,7 +216,7 @@
 		dashBoard.makeTimelyNames();
 		var arr = new Array();
 		var timeIndex =  dashBoard.options.legend.names.length;
-		for (var i = 0; i <= timeIndex && idx <= timeIndex; i++) {
+		for (var i = 0; i < timeIndex && idx <= timeIndex; i++) {
 
 			var measureObj = timely[idx];
 			var mArr = new Array();
