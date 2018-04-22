@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.iptime.iothome.domain.User;
 import org.iptime.iothome.domain.UserRepository;
@@ -33,6 +34,33 @@ public class UserController {
     @GetMapping("/form")
     public String form() {
         return "/user/form";
+    }
+    
+    @PostMapping("/login")
+    public String login(String userId, String password, HttpSession session) {
+        User user = userRepository.findByUserId(userId);
+        
+        if(user == null)
+            return "redirect:/user/loginForm";
+
+        if(!user.getPassword().equals(password))
+            return "redirect:/user/loginForm";
+        
+        session.setAttribute("user", user);
+        
+        return "redirect:/";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
+        
+        return "redirect:/";
+    }
+    
+    @GetMapping("/loginForm")
+    public String loginForm() {
+        return "/user/login";
     }
     
     @PostMapping("/users")
