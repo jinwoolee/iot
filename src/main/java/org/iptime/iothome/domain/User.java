@@ -39,6 +39,7 @@ public class User {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+    
     public String getName() {
         return name;
     }
@@ -51,6 +52,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+    
     public String getEmail() {
         return email;
     }
@@ -62,6 +64,20 @@ public class User {
         this.name = updateUser.name;
         this.email = updateUser.email;
         this.password = updateUser.password;
+    }
+    
+    public boolean matchPassword(String matchPassword) {
+        if(matchPassword == null)
+            return false;
+        
+        return password.equals(matchPassword);
+    }
+    
+    public boolean matchId(Long matchId) {
+        if(matchId == null)
+            return false;
+        
+        return id.equals(matchId);
     }
     
     @Override
