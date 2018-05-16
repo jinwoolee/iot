@@ -21,10 +21,10 @@ public class QuestionController {
     
     @GetMapping("/form")
     public String form(HttpSession session) {
-        if(!HttpSessionUtils.isLoginUser(session))
-            return "redirect:/user/loginForm";
-        else
+        if(HttpSessionUtils.isLoginUser(session))
             return "/qna/form";
+        else
+            return "redirect:/user/loginForm";
     }
     
     @PostMapping("")
