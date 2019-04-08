@@ -11,7 +11,7 @@ import com.ljw.iot.model.Sensor;
 
 @Repository
 public class SensorDao {
-	@Autowired
+	
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<Sensor> getSensorList() {
