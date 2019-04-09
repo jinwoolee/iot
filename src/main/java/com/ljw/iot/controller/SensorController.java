@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ljw.common.dao.CodeDao;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 import com.ljw.iot.model.SensorVo;
@@ -51,7 +50,7 @@ public class SensorController {
 	@ResponseBody
 	public String insertMeasure(Measure measure){
 		String msg;
-		
+		logger.debug("measure : {}", measure);
 		int insertCnt = sensorService.insertMeasure(measure);
 		msg = insertCnt == 1 ? "OK" : "ERROR"; 
 		
