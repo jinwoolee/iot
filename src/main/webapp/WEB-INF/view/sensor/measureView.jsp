@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type='text/css'>
-<link rel="stylesheet" href="/bootstrapDatepicker/css/bootstrap-datepicker3.min.css" type='text/css'>
-<link rel='stylesheet' href='/js/nwagon/Nwagon.css' type='text/css'>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/bootstrap/css/bootstrap.min.css" type='text/css'>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/bootstrapDatepicker/css/bootstrap-datepicker3.min.css" type='text/css'>
+<link rel='stylesheet' href='${pageContext.request.contextPath }/js/nwagon/Nwagon.css' type='text/css'>
 <style>
 .tooltip {
 	filter: alpha(opacity = 1) !important;
@@ -52,11 +52,11 @@
 	</div>
 </body>
 
-<script src="/js/jquery-3.1.1.js"></script>
-<script src="/js/moment.js"></script>
-<script src="/bootstrap/js/bootstrap.js"></script>
-<script src="/bootstrapDatepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="/js/nwagon/Nwagon.js"></script>
+<script src="${pageContext.request.contextPath }/js/jquery-3.1.1.js"></script>
+<script src="${pageContext.request.contextPath }/js/moment.js"></script>
+<script src="${pageContext.request.contextPath }/bootstrap/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath }/bootstrapDatepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="${pageContext.request.contextPath }/js/nwagon/Nwagon.js"></script>
 <script>
 	$(document).ready(function() {
 		var std_ym = "";
