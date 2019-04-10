@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "iot-dust-sensor",
+  "private_key_id": "1c3109f2c435913e1f89ec0efc0e4b935ac3c9d8",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClQDN+jMQtjfc2\ns73PTNnCe5CV0GjpVZwhz8SVOb8hcAxCTLrXJWG309jHVRxW3KezJxyMxB8eVPHG\noHG9u/L0e8TrBn7q4nZwnJET3C6Y6z7DVRkimJn5EQ5PUwIhIfoWqbAlS6bxeurJ\nPkCuy+PcZgeDQ0rZakEbc/bRBv/LPQ20SHW4KmrDHI7iGv4ZrbkYv52nkyMI1epj\nvDqTeHdKUcfbP7s1R/B32bwj8DVO0hF93uWewy87K/U/sDPomfgpRBF5KLHL8UNO\npp8/H6dap/vDGx0EZaviGEwxVhWjFUgAuSPXSciOfhge6CCsML+Bo+SIa3zHP4CD\nHeRp0f5dAgMBAAECggEAE/KPBLyrRbB4YgMKa4akVqShzGPO9jOeWDqDSVwiJUAo\nSqyGdUgO5qjM5yrv89BI8ghLmvZlpzyrvsVJVZTle/ugxpoPIf1aPLe5j4MpoM3s\n0ploIlP3aihT6OFlRWibjrbHC4l5SncC9m3sUu1LwSQTzhWGaH46A71Y0tycbgTs\nAxOsrrdTUwIrgTrqxBGnCNRR0mncJsSTZhDrzq5CCfe35GHmEQuxb0tT1M3uK882\nJ+fgfRgR1OW3bFQ1U3jCaVeiFl3V89uoxHDISzglDBkj5wdL97M+wgZFEe5twm9W\nUHorRFUnGzWl5srqsf1mBSpkMd7lSPSaW2qyzUaZJQKBgQDRz+8n96y/FXG1KVco\nxguKJakJYBoQ9tt+ORy90fxwQzV+eWU2/bGr8Sh7O13sjIBnPDyLiS+cCVEO8nqI\nrRSSN4WpvSLEqUOc8CFXBWqc8UtOdpcCSPOIZoMWJkv+WlR0g8NUJJQUSV5yqcO/\n6ZPOoGGPd2oh4g343dDLgZMd3wKBgQDJoPxGyCjzaOLp69C+vWekC3nnQkX0swrz\n/jb39pXLivP4ep2h/XnnnvhYK8p2RAFp0uWuKBF9e3TTZuIP0VhbW/rv1zVCOEZm\ntr+ixMa7o7N3af1TO53wcToMxxE4XEuonfvvhis4tTG7YicUlniRZk9k4coDsJyy\nMs9GRtpzQwKBgA5JucCgBjyRCkhLA2t8aSbEP8mqqLvFA9eJriJjHWzLtuXhAHqJ\nNkM+TgJuXYwRWWEuYfUip4JZxBJfguax2rfGXizb+3UnDbqvQ6X4cXU0nWs/ejMm\noqcETCMDAqPUpPG2U2P0hb0H7g2i7/iuwGkO1PX/LNQX39m1yVVCgrFDAoGBAIFW\nu33MODisN6NGmglBBpK8qd4nLSjjEUui7y/xBfYjlIz4WtXm+6QQ3c3xiVaEGUQA\n/UTSfyW3ZCGYBbuP1tYEEtx3eLqZzs9ku1l2UOVdBWq8mrwhqhbrCwnXSLyWuBHa\nBhqIPoGJ+fTx6Y/TVlQvBQ75p9TmHh5RaZTzLn5xAoGAex7FnHZAnHfbImXEykAL\nhvp0h07MkWtzI/fOFPACXJOp5IKqymJgo2sHezGb964E4iFGu/pk7afL+HLXBHLg\nf6HbTylsPH0x7VjoyF4hvw88EeUatPA5t9rP2AEuv68ygr5lNoQ+8GKgy2iJFbfX\n3qqI0+inllGt4Q8+IuEwnWg=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-e594z@iot-dust-sensor.iam.gserviceaccount.com",
+  "client_id": "110122620215589169758",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-e594z%40iot-dust-sensor.iam.gserviceaccount.com"
+}
