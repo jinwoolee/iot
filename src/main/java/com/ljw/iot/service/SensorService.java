@@ -2,6 +2,7 @@ package com.ljw.iot.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
@@ -16,7 +17,15 @@ public interface SensorService {
 
 	List<SensorMeasure> getSensorMeasure(SensorVo sensorVo);
 
-	int insertMeasure(Measure measure);
+	/** 
+	 * Method   : insertMeasure
+	 * 작성자 : jw
+	 * 변경이력 : 
+	 * @param measure
+	 * @return 
+	 * Method 설명 : 먼지 센싱 데이터 firebase 입력 
+	 */
+	boolean insertMeasure(Measure measure) throws InterruptedException, ExecutionException;
 
 	/**
 	  * @FileName : SensorService.java

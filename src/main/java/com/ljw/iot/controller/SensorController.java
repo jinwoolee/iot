@@ -1,7 +1,9 @@
 package com.ljw.iot.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +51,19 @@ public class SensorController {
 	@RequestMapping(value = "/measure", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertMeasure(Measure measure){
+		
+		measure.setReg_dt(new Date());
 		String msg;
 		logger.debug("measure : {}", measure);
-		int insertCnt = sensorService.insertMeasure(measure);
-		msg = insertCnt == 1 ? "OK" : "ERROR"; 
+		boolean isDone = false;
+		
+		try {
+			isDone = sensorService.insertMeasure(measure);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		msg = isDone ? "OK" : "ERROR"; 
 		
 		return msg;
 	}

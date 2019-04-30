@@ -1,6 +1,7 @@
 package com.ljw.iot.httpcleint;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,25 +103,5 @@ public class HttpClientTest {
 			// logger.debug("reg_dt : {} ", document.getTimestamp("reg_dt"));
 			// logger.debug("reg_dt : {} ", document.getDate("reg_dt"));
 		}
-	}
-
-	//firebase data 추가
-	@Test
-	public void addDatFirebaseTest() throws InterruptedException, ExecutionException, IOException {
-		DocumentReference docRef = db.collection("dustMeasure").document("dustMeasure");
-
-		Map<String, Object> data = new HashMap<>();
-		data.put("aqi", 13.4);
-		data.put("measure", 2459.7);
-		data.put("sensor_id", 1);
-		data.put("reg_dt", new Date(System.currentTimeMillis()));
-
-		// timestamp 추후 적
-		// data.put("reg_dt", ServerValue.TIMESTAMP);
-
-		// asynchronously write data
-		ApiFuture<WriteResult> result = docRef.set(data);
-
-		logger.debug("Update time : {}", result.get().getUpdateTime());
 	}
 }

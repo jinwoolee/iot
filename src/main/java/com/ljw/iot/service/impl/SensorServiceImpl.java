@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ljw.common.dao.CodeDao;
+import com.ljw.iot.dao.ISensorDao;
 import com.ljw.iot.dao.SensorMapper;
 import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
@@ -25,6 +26,9 @@ public class SensorServiceImpl implements SensorService{
 	
 	//@Autowired
 	private SensorMapper sensorMapper;
+	
+	@Autowired
+	private ISensorDao sensorDao;
 	
 	@Autowired
 	private CodeDao codeDao;
@@ -83,13 +87,13 @@ public class SensorServiceImpl implements SensorService{
 	  * @변경이력 :
 	  * @param measure
 	  * @return
-	  * @프로그램 설명 : 측정치 입력 
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
+ 	  * @프로그램 설명 : 측정치 입력 
 	  */
 	@Override
-	@Transactional
-	public int insertMeasure(Measure measure) {
-		//return sensorMapper.insertMeasure(measure);
-		return 0;
+	public boolean insertMeasure(Measure measure) throws InterruptedException, ExecutionException {
+		return sensorDao.insertMeasure(measure);
 	}
 
 	/**
