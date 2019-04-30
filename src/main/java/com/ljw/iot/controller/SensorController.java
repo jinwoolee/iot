@@ -68,6 +68,31 @@ public class SensorController {
 		return msg;
 	}
 	
+	//데이터 임의 입력용테스트
+	@RequestMapping(value = "/measure", method = RequestMethod.GET)
+	@ResponseBody
+	public String insertMeasureGet(){
+		Measure measure = new Measure();
+		measure.setAqi(13.4);
+		measure.setMeasure(2459.7);
+		measure.setSensor_id("1");
+		measure.setReg_dt(new Date());
+		
+		String msg;
+		logger.debug("measure : {}", measure);
+		boolean isDone = false;
+		
+		try {
+			isDone = sensorService.insertMeasure(measure);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		msg = isDone ? "OK" : "ERROR"; 
+		
+		return msg;
+	}
+	
 	@RequestMapping(value="/measureView", method = RequestMethod.GET)
 	public ModelAndView getMeasureView(SensorVo sensorVo) {
 		ModelAndView mav = new ModelAndView("/sensor/measureView");
