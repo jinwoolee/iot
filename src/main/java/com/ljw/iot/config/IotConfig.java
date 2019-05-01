@@ -3,6 +3,8 @@ package com.ljw.iot.config;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -30,6 +32,8 @@ import com.google.firebase.cloud.FirestoreClient;
 @EnableWebMvc
 public class IotConfig {
 	
+	private Logger logger = LoggerFactory.getLogger(IotConfig.class);
+	
 	@Bean
 	public Firestore db() {
 		InputStream serviceAccount = IotConfig.class.getClassLoader().getResourceAsStream("com/ljw/iot/config/firebase/iot-dust-sensor-account.json");
@@ -43,7 +47,9 @@ public class IotConfig {
 			FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(credentials)
 					.setFirestoreOptions(FirestoreOptions.newBuilder().setTimestampsInSnapshotsEnabled(true).build()).build();
 			
-			FirebaseApp.initializeApp(options);
+			logger.debug("FirebaseApp.getApps().size() : {}", FirebaseApp.getApps().size());
+			if(FirebaseApp.getApps().size() ==0)
+				FirebaseApp.initializeApp(options);
 			
 			return FirestoreClient.getFirestore();
 		} catch (IOException e) {
