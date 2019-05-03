@@ -65,7 +65,7 @@ public class SensorDao implements ISensorDao{
 		
 		
 		// asynchronously write data
-		ApiFuture<WriteResult> result = yyyyMMddDocRef.set(measure);
+		ApiFuture<WriteResult> result = yyyyMMddDocRef.set(map);
 		
 		logger.trace("docRef.getId() : " + yyyyMMddDocRef.getId());					//문서 아이디
 		logger.trace("Update time : {}", result.get().getUpdateTime());		//서버 반영시간
