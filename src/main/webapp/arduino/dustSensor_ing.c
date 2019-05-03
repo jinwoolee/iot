@@ -4,25 +4,24 @@
 #include "math.h"
 
 /* Private variables ---------------------------------------------------------*/
-#define POST_DATA_INTERVAL  30000  //  1000ms = 1s(sec)
+#define POST_DATA_INTERVAL  60000  //  1000ms = 1s(sec)
 #define SERIAL_WIFI  Serial3
 #define SERIAL_DEBUG Serial
 
-
-char ssid[] = "ddit08-sub1";    // your network SSID (name)
-char pass[] = "eoejrit8202";    // your network password
+char ssid[] = "ddit06";    // your network SSID (name)
+char pass[] = "ddit.or.kr.206";    // your network password
 int status = WL_IDLE_STATUS;       // the Wifi radio's status
 
-//const char* server_dns = "iothome.iptime.org";
-const char* server_dns = "192.168.0.24";
-const int port = 8080;
-const char* post_url = "POST /sensor/measure?";  // Change YOURTHINGSNAME
+
+const char* server_dns = "192.168.206.15";
+const int port = 80;
+const char* post_url = "POST /sensor/measure";  // Change YOURTHINGSNAME
 
 //dust sensor
 #define PIN_DUST_SENSOR 8
 unsigned long duration;
 unsigned long starttime;  
-#define SENSOR_INTERVAL  30000
+#define SENSOR_INTERVAL  60000
 unsigned long lowpulseoccupancy = 0;
 float ratio = 0;
 
@@ -54,7 +53,7 @@ void loop() {
     postAnalogSensor();
   else{
     SERIAL_DEBUG.println("[Net Info] connecting to server...");
-    if(client.connect(server_dns, 8080)){
+    if(client.connect(server_dns, 80)){
       SERIAL_DEBUG.print("[Net Info] Connected! Sending HTTP request to ");
       SERIAL_DEBUG.println(server_dns);  
     }
@@ -73,7 +72,7 @@ void loop() {
 int postAnalogSensor(void) {
   
   //dust sensor
-  float concentration = 0;
+  double concentration = 0;
   duration = pulseIn(PIN_DUST_SENSOR, LOW);
   lowpulseoccupancy = lowpulseoccupancy+duration;
 
@@ -101,6 +100,9 @@ int postAnalogSensor(void) {
     double concentration_ugm3 = concentration * 3531.5 * masspm25;
         
 
+
+
+  
     SERIAL_DEBUG.print("lowpulseoccupancy = ");
     SERIAL_DEBUG.println(lowpulseoccupancy);
     SERIAL_DEBUG.print("concentration = ");
@@ -114,28 +116,54 @@ int postAnalogSensor(void) {
       SERIAL_DEBUG.print("no send");
       return 0;
     }
-    
-    client.print(post_url);
 
-    client.print("sensor_id=1");
-    client.print("&measure=");
-    client.print(concentration);
-    client.print("&aqi=");
-    client.print(concentration_ugm3);
     
-    client.print("Host: ");
-    client.println(server_dns);
-  
-    //client.stop();
+    String body =  "{\"sensor_id\":1, \"measure=\":" + String(concentration) +" , \"aqi\" : " + String(concentration_ugm3) + "}";
+    SERIAL_DEBUG.println(body);
+
+    String param = "sensor_id=1&measure=" + String(concentration) + "&aqi=" + String(concentration_ugm3);
+
+	//post 방식이 잘 안된다 ㅠ_ㅠ
+	//get 방식으로 일차
+	//추후 post 방식으로 수정해보자 참고 url : https://github.com/bportaluri/WiFiEsp/issues/50
+	//https://help.ubidots.com/connect-your-devices/connect-an-arduino-uno-wiznet-wizfi310-to-ubidots-over-http
+    client.print("GET /sensor/measure?" + param + "\r\n");
+    client.print("Host: 192.168.206.15\r\n");
+    client.println("Content-Type: application/x-www-form-urlencoded");
+    client.print("User-Agent: Arduino-Ethernet/1.0\r\n");
+    //client.print("Content-Length:");
+    //client.print(String(body.length()));
+    client.print("\r\n");
+    
+    //client.print("Connection: close\r\n");
+    client.print("\r\n");
+    //client.print("sensor_id=1&measure=123123&aqi=123.5");
+    client.print("\r\n\r\n");
+    client.flush();
+    client.stop();
+
     SERIAL_DEBUG.println("Send Request !");
     SERIAL_DEBUG.println("\n");
 
     lowpulseoccupancy = 0;
     starttime = millis();
-    
+ 
     return 1;
   }
   return 0;
+}
+
+
+int dataLen(char* variable) {
+  uint8_t dataLen = 0;
+  for (int i = 0; i <= 250; i++) {
+    if (variable[i] != '\0') {
+      dataLen++;
+    } else {
+      break;
+    }
+  }
+  return dataLen;
 }
 
 /**

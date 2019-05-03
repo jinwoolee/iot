@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,13 +49,14 @@ public class SensorController {
 		return "servlet context root"; 
 	}
 	
-	@RequestMapping(value = "/measure", method = RequestMethod.POST)
+	@RequestMapping(value = "/measure", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertMeasure(Measure measure){
-		
+
+
 		measure.setReg_dt(new Date());
 		String msg;
-		logger.debug("measure : {}", measure);
+		logger.debug("get measure : {}", measure);
 		boolean isDone = false;
 		
 		try {
@@ -69,17 +71,12 @@ public class SensorController {
 	}
 	
 	//데이터 임의 입력용테스트
-	@RequestMapping(value = "/measure", method = RequestMethod.GET)
-	@ResponseBody
-	public String insertMeasureGet(){
-		Measure measure = new Measure();
-		measure.setAqi(13.4);
-		measure.setMeasure(2459.7);
-		measure.setSensor_id("1");
-		measure.setReg_dt(new Date());
+	//@RequestMapping(value = "/measure", method = RequestMethod.GET)
+	//@ResponseBody
+	public String insertMeasureGet(Measure measure){
 		
 		String msg;
-		logger.debug("measure : {}", measure);
+		logger.debug("get measure : {}", measure);
 		boolean isDone = false;
 		
 		try {

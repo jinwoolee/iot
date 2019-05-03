@@ -1,6 +1,8 @@
 package com.ljw.iot.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -40,12 +42,21 @@ public class SensorDao implements ISensorDao{
 	 */
 	public boolean insertMeasure(Measure measure) throws InterruptedException, ExecutionException {
 		
-		DocumentReference docRef = db.collection("dustMeasure").document();	//신규 문서 생성
+		SimpleDateFormat sdf_yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf_H = new SimpleDateFormat("H");
+		SimpleDateFormat sdf_m = new SimpleDateFormat("m");
+		
+		Date dt = new Date();
+		
+		DocumentReference yyyyMMddDocRef = db.collection("dustMeasure").document(sdf_yyyyMMdd.format(dt));	//신규 문서 생성
+		DocumentReference hDocRef = yyyyMMddDocRef.collection("hour").document(sdf_H.format(dt));
+		DocumentReference mDocRef = hDocRef.collection("min").document(sdf_m.format(dt));
+		
 		
 		// asynchronously write data
-		ApiFuture<WriteResult> result = docRef.set(measure);
+		ApiFuture<WriteResult> result = mDocRef.set(measure);
 		
-		logger.trace("docRef.getId() : " + docRef.getId());					//문서 아이디
+		logger.trace("docRef.getId() : " + yyyyMMddDocRef.getId());					//문서 아이디
 		logger.trace("Update time : {}", result.get().getUpdateTime());		//서버 반영시간
 		
 		return result.isDone();
