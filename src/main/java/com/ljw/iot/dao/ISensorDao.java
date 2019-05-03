@@ -7,9 +7,25 @@ import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 
 
+/**
+ * ISensorDao.java
+ *
+ * @author SEM
+ * @version 1.0
+ * @see
+ *
+ * <pre>
+ * << 개정이력(Modification Information) >>
+ *
+ * 수정자 수정내용
+ * ------ ------------------------
+ * SEM 최초 생성
+ *
+ * </pre>
+ */
 public interface ISensorDao {
 	
-	public List<Sensor> getSensorList();
+	List<Sensor> getSensorList();
 
 	/** 
 	 * Method   : insertMeasure
@@ -21,5 +37,7 @@ public interface ISensorDao {
 	 * @throws ExecutionException 
 	 * @throws InterruptedException 
 	 */
-	public boolean insertMeasure(Measure measure) throws InterruptedException, ExecutionException;
+	boolean insertMeasure(Measure measure) throws InterruptedException, ExecutionException;
+	
+	List<Measure> getMeasureDaily(String day);
 }

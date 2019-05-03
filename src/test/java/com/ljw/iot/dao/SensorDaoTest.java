@@ -1,7 +1,6 @@
 package com.ljw.iot.dao;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +27,7 @@ public class SensorDaoTest {
 	Logger logger = LoggerFactory.getLogger(SensorDaoTest.class);
 	
 	@Autowired
-	SensorDao sensorDao;
+	ISensorDao sensorDao;
 	
 	@Test
 	public void testGetSensor() {
@@ -59,4 +58,18 @@ public class SensorDaoTest {
 		/***then***/
 		assertTrue(isDone);		//정상 완료 여부	
 	}
+	
+	@Test
+	public void getMeasureDailyTest(){
+		/***Given***/
+		String day = "20190503";
+		
+		/***When***/
+		List<Measure> measureList = sensorDao.getMeasureDaily(day);
+
+		/***Then***/
+		assertNotNull(measureList);
+		assertTrue(measureList.size() > 5);
+	}
+	
 }
