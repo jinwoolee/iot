@@ -40,4 +40,6 @@ public interface ISensorDao {
 	boolean insertMeasure(Measure measure) throws InterruptedException, ExecutionException;
 	
 	List<Measure> getMeasureDaily(String day);
+
+	List<Measure> getMeasureMonthly(String yyyyMM);
 }

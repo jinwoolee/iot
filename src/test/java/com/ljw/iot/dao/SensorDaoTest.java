@@ -62,10 +62,25 @@ public class SensorDaoTest {
 	@Test
 	public void getMeasureDailyTest(){
 		/***Given***/
-		String day = "20190503";
+		String day = "20190507";
 		
 		/***When***/
 		List<Measure> measureList = sensorDao.getMeasureDaily(day);
+		logger.debug("measureList.size() : {}", measureList.size());
+
+		/***Then***/
+		assertNotNull(measureList);
+		assertTrue(measureList.size() > 5);
+	}
+	
+	@Test
+	public void getMeasureMonthlyTest(){
+		/***Given***/
+		String yyyyMM = "201905";
+		
+		/***When***/
+		List<Measure> measureList = sensorDao.getMeasureMonthly(yyyyMM);
+		logger.debug("measureList.size() : {}", measureList.size());
 
 		/***Then***/
 		assertNotNull(measureList);
