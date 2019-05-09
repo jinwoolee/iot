@@ -46,10 +46,20 @@ app.get('/sensor/measure', function(req, res){
     //sensor_id=1&measure=" + String(concentration) + "&aqi=" + String(concentration_ugm3);
 
     //http://localhost:3000/sensor/measure?sensor_id=1&measure=123.5&aqi=12.6
-    console.log(req.query);
-    console.log(req.query.sensor_id);
-    console.log(req.query.measure);
-    console.log(req.query.aqi);
+     console.log(req.query);
+    // console.log(req.query.sensor_id);
+    // console.log(req.query.measure);
+    // console.log(req.query.aqi);
+
+    var dt = new Date();
+
+    var yyyyMMddDocRef = db.collection('dustMeasure').doc(dt.format("yyyyMMdd"));
+    var hDocRef = yyyyMMddDocRef.collection(dt.format("HH")).doc(dt.format("mm"));
+
+    
+
+    //console.log("measure ", measure );
+    var setDoc = hDocRef.set(req.query);
 
     res.send('Hello World');
   });
