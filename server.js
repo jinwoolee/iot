@@ -56,10 +56,16 @@ app.get('/sensor/measure', function(req, res){
     var yyyyMMddDocRef = db.collection('dustMeasure').doc(dt.format("yyyyMMdd"));
     var hDocRef = yyyyMMddDocRef.collection(dt.format("HH")).doc(dt.format("mm"));
 
-    
 
-    //console.log("measure ", measure );
-    var setDoc = hDocRef.set(req.query);
+    var measure = {
+            "sensor_id" : req.query.sensor_id,
+            "measure" : req.query.measure,
+            "aqi" : req.query.aqi,
+            "reg_dt" : new Date(),
+    };
+    
+    console.log("measure ", measure );
+    var setDoc = hDocRef.set(measure);
 
     res.send('Hello World');
   });
