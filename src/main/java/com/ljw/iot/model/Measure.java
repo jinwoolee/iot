@@ -1,72 +1,68 @@
 package com.ljw.iot.model;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class Measure {
-    private String measure_id; // 측정id
-    private String sensor_id; // sensor id
-    private Double measure; // 측정값
-    private Double aqi; // aqi 지
-    private String reg_dt; // 측정값 등록일
-    private String dt; // 조회일정
+	private String sensor_id;	// sensor id
+	private Double measure; 	// 측정값
+	private Double aqi;			// aqi 지수
+	private Date reg_dt;		// 측정값 등록일
+	private String dt;			// 조회일정
 
-    public Measure(String sensor_id, Double measure) {
-	this.sensor_id = sensor_id;
-	this.measure = measure;
-    }
+	public Measure(String sensor_id, Double measure) {
+		this.sensor_id = sensor_id;
+		this.measure = measure;
+	}
 
-    public Measure() {
-    }
+	public Measure() {
+	}
 
-    public String getMeasure_id() {
-	return measure_id;
-    }
+	public String getSensor_id() {
+		return sensor_id;
+	}
 
-    public void setMeasure_id(String measure_id) {
-	this.measure_id = measure_id;
-    }
+	public void setSensor_id(String sensor_id) {
+		this.sensor_id = sensor_id;
+	}
 
-    public String getSensor_id() {
-	return sensor_id;
-    }
+	public Double getMeasure() {
+		return measure;
+	}
 
-    public void setSensor_id(String sensor_id) {
-	this.sensor_id = sensor_id;
-    }
+	public void setMeasure(Double measure) {
+		this.measure = measure;
+	}
 
-    public Double getMeasure() {
-	return measure;
-    }
+	public Date getReg_dt() {
+		return reg_dt;
+	}
 
-    public void setMeasure(Double measure) {
-	this.measure = measure;
-    }
+	public void setReg_dt(Date reg_dt) {
+		this.reg_dt = reg_dt;
+	}
 
-    public String getReg_dt() {
-	return reg_dt;
-    }
+	public String getDt() {
+		return dt;
+	}
 
-    public void setReg_dt(String reg_dt) {
-	this.reg_dt = reg_dt;
-    }
+	public void setDt(String dt) {
+		this.dt = dt;
+	}
 
-    public String getDt() {
-	return dt;
-    }
+	public Double getAqi() {
+		return aqi;
+	}
 
-    public void setDt(String dt) {
-	this.dt = dt;
-    }
+	public void setAqi(Double aqi) {
+		this.aqi = aqi;
+	}
 
-    public Double getAqi() {
-	return aqi;
-    }
-
-    public void setAqi(Double aqi) {
-	this.aqi = aqi;
-    }
-
-    @Override
-    public String toString() {
-	return "Measure [measure_id=" + measure_id + ", sensor_id=" + sensor_id + ", measure=" + measure + ", aqi="
-		+ aqi + ", reg_dt=" + reg_dt + ", dt=" + dt + "]";
-    }
+	@Override
+	public String toString() {
+		return "Measure [sensor_id=" + sensor_id + ", measure=" + measure + ", aqi=" + aqi + ", reg_dt=" + reg_dt + ", dt=" + dt + "]";
+	}
 }

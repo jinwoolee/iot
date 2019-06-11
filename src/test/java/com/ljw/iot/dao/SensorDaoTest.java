@@ -2,7 +2,9 @@ package com.ljw.iot.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.ljw.common.config.AppConfigTest;
 import com.ljw.iot.config.IotConfigTest;
+import com.ljw.iot.model.Measure;
 import com.ljw.iot.model.Sensor;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,7 +27,7 @@ public class SensorDaoTest {
 	Logger logger = LoggerFactory.getLogger(SensorDaoTest.class);
 	
 	@Autowired
-	SensorDao sensorDao;
+	ISensorDao sensorDao;
 	
 	@Test
 	public void testGetSensor() {
@@ -38,4 +41,50 @@ public class SensorDaoTest {
 		for(Sensor sensor : sensorList)
 			logger.debug(sensor.toString());
 	}
+	
+	@Test
+	public void insertMeasureTest() throws InterruptedException, ExecutionException {
+		/***given***/
+		
+		Measure measure = new Measure();
+		measure.setAqi(13.4);
+		measure.setMeasure(2459.7);
+		measure.setSensor_id("1");
+		measure.setReg_dt(new Date());
+
+		/***when***/
+		boolean isDone = sensorDao.insertMeasure(measure);
+		
+		/***then***/
+		assertTrue(isDone);		//정상 완료 여부	
+	}
+	
+	@Test
+	public void getMeasureDailyTest(){
+		/***Given***/
+		String day = "20190507";
+		
+		/***When***/
+		List<Measure> measureList = sensorDao.getMeasureDaily(day);
+		logger.debug("measureList.size() : {}", measureList.size());
+
+		/***Then***/
+		assertNotNull(measureList);
+		assertTrue(measureList.size() > 5);
+	}
+	
+	@Test
+	public void getMeasureMonthlyTest(){
+		/***Given***/
+		String yyyyMM = "201905";
+		
+		/***When***/
+		List<Measure> measureList = sensorDao.getMeasureMonthly(yyyyMM);
+		logger.debug("measureList.size() : {}", measureList.size());
+
+		/***Then***/
+		assertNotNull(measureList);
+		assertTrue(measureList.size() > 5);
+	}
+	
 }

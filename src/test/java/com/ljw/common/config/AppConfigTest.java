@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 												  @Filter(Controller.class),
 												  @Filter(ControllerAdvice.class)})
 @Configuration
-@PropertySource(value={"classpath:com/ljw/common/config/dbTest.properties"})
 public class AppConfigTest {
 
 }

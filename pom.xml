@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ljw</groupId>
@@ -136,11 +135,11 @@
 		</dependency>
 
 		<!-- maria db -->
-		<dependency>
-			<groupId>org.mariadb.jdbc</groupId>
-			<artifactId>mariadb-java-client</artifactId>
-			<version>1.1.7</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.mariadb.jdbc</groupId> -->
+		<!-- <artifactId>mariadb-java-client</artifactId> -->
+		<!-- <version>1.1.7</version> -->
+		<!-- </dependency> -->
 
 		<!-- Jackson -->
 		<dependency>
@@ -178,6 +177,19 @@
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-admin</artifactId>
 			<version>6.8.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-tcnative-boringssl-static</artifactId>
+			<version>2.0.6.Final</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-tcnative</artifactId>
+			<version>2.0.6.Final</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 

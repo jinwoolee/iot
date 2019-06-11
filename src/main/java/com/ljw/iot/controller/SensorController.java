@@ -1,12 +1,15 @@
 package com.ljw.iot.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,13 +49,43 @@ public class SensorController {
 		return "servlet context root"; 
 	}
 	
-	@RequestMapping(value = "/measure", method = RequestMethod.POST)
+	@RequestMapping(value = "/measure", method = RequestMethod.GET)
 	@ResponseBody
 	public String insertMeasure(Measure measure){
+
+
+		measure.setReg_dt(new Date());
 		String msg;
-		logger.debug("measure : {}", measure);
-		int insertCnt = sensorService.insertMeasure(measure);
-		msg = insertCnt == 1 ? "OK" : "ERROR"; 
+		logger.debug("get measure : {}", measure);
+		boolean isDone = false;
+		
+		try {
+			isDone = sensorService.insertMeasure(measure);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		msg = isDone ? "OK" : "ERROR"; 
+		
+		return msg;
+	}
+	
+	//데이터 임의 입력용테스트
+	//@RequestMapping(value = "/measure", method = RequestMethod.GET)
+	//@ResponseBody
+	public String insertMeasureGet(Measure measure){
+		
+		String msg;
+		logger.debug("get measure : {}", measure);
+		boolean isDone = false;
+		
+		try {
+			isDone = sensorService.insertMeasure(measure);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		
+		msg = isDone ? "OK" : "ERROR"; 
 		
 		return msg;
 	}

@@ -3,8 +3,10 @@ package com.ljw.iot.service.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,15 +81,20 @@ public class SensorServiceImplTest {
 	
 	//측정치 입력 테스트
 	@Test
-	public void testInsertMeasure(){
-		//given
-		Measure measure = new Measure("1", 1262.83d);
+	public void insertMeasureTest() throws InterruptedException, ExecutionException {
+		/***given***/
 		
-		//when
-		int insertCnt = sensorService.insertMeasure(measure);
+		Measure measure = new Measure();
+		measure.setAqi(13.4);
+		measure.setMeasure(2459.7);
+		measure.setSensor_id("1");
+		measure.setReg_dt(new Date());
+
+		/***when***/
+		boolean isDone = sensorService.insertMeasure(measure);
 		
-		//then
-		assertEquals(1, insertCnt);
+		/***then***/
+		assertTrue(isDone);	//정상 완료 여부	
 	}
 	
 	//월별 측정치 조회
