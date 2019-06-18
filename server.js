@@ -2,8 +2,16 @@ const admin = require('firebase-admin');
 var express = require('express');
 var app = express();
 
-var serviceAccount = require('./iot-dust-sensor-account.json');
+app.use(express.json());                    //json 
+app.use("/js", express.static('js'));       //정적 자료 위치(js)
+app.use("/css", express.static('css'));     //정적 자료 위치(css)
 
+app.set("view engine", "pug");      //template engine 사용 선언
+app.set("views", "views");          //view 파일 기본 위치 default views 참고(https://expressjs.com/en/4x/api.html#app.set)
+app.locals.pretty = true;           //템플릿 생성시 포맷 
+
+var serviceAccount = require('./iot-dust-sensor-account.json');
+//test
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -38,18 +46,36 @@ String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s
 String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
 Number.prototype.zf = function(len){return this.toString().zf(len);};
 
+app.get("/", function(req, res){
+    res.render("./sensorMeasure", {});
+});
 
+app.get("/sensor/measureView", function(req, res){
+    res.render("./sensorMeasure", {});
+});
 
+//미세먼지 데이터 요청 json
+app.get("/sensor/getMeasure", function(req, res){
+    var monthlyData = { monthly : [
+        {dt:1, measure:100},
+        {dt:2, measure:200},
+        {dt:3, measure:300},
+        {dt:4, measure:400},
+        {dt:5, measure:500},
+        {dt:6, measure:600},
+        {dt:7, measure:700},
+        {dt:8, measure:800},
+        {dt:9, measure:600},
+        {dt:10, measure:400},
+        {dt:11, measure:200},
+        {dt:12, measure:300} ] };
+        res.status(200).json(monthlyData);
+});
 
 app.get('/sensor/measure', function(req, res){
 
-    //sensor_id=1&measure=" + String(concentration) + "&aqi=" + String(concentration_ugm3);
-
     //http://localhost:3000/sensor/measure?sensor_id=1&measure=123.5&aqi=12.6
      console.log(req.query);
-    // console.log(req.query.sensor_id);
-    // console.log(req.query.measure);
-    // console.log(req.query.aqi);
 
     var dt = new Date();
 
