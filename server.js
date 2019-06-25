@@ -1,6 +1,7 @@
  const admin = require('firebase-admin');
 //var firebase = require('firebase/app');
 //var firestore = require('firebase/firestore');
+var dateFormat = require('dateformat');
 var express = require('express');
 var app = express();
 
@@ -44,50 +45,60 @@ app.get("/sensor/measureView", function(req, res){
 
 //미세먼지 데이터 요청 json
 app.get("/sensor/getMeasure", function(req, res){
-    var data = { monthly : [
-        {dt:1, measure:0},
-        {dt:2, measure:0},
-        {dt:3, measure:0},
-        {dt:4, measure:0},
-        {dt:5, measure:0},
-        {dt:6, measure:0},
-        {dt:7, measure:0},
-        {dt:8, measure:0},
-        {dt:9, measure:0},
-        {dt:10, measure:0},
-        {dt:11, measure:0},
-        {dt:12, measure:0} ],
-     };
     
+    //응답 데이터 초기화    
+    var data = dataInit();
 
-        console.log("test");
-
-        var sdt = new Date('2019-06-25T13:15:40');
-        var edt = new Date('2019-06-25T13:30:40');
-        
-        //일별
-        var dustColl = db.collection('test')
-                            .where("reg_dt", "<=", edt)
-                            .where("reg_dt", ">=", sdt);
-        dustColl.get()
-        .then(snapshot => {
-          if (snapshot.empty) {
+    var sdt = new Date('2019-01-01T00:00:00');
+    var edt = new Date('2019-12-31T23:59:59');
+    
+    //일별
+    var dustColl = db.collection('dustData')
+                        .where("reg_dt", "<=", edt)
+                        .where("reg_dt", ">=", sdt).get()
+    .then(snapshot => {
+        if (snapshot.empty) {
             console.log('No matching documents.');
             return;
-          }  
-          
-          var aqi = 0;
-          snapshot.forEach(doc => {
+        }  
+        
+        var thisMonth = dateFormat(new Date(), "m");
+        var today = dateFormat(new Date(), "d");
+
+
+        var aqi = 0;
+        snapshot.forEach(doc => {
+            
             //console.log(doc.id, '=>', doc.data());
-            var m = doc.data().reg_dt.toDate().format("M");
-            data.monthly[m].measure = data.monthly[m].measure + Number(doc.data().aqi);
-          });
-          res.status(200).json(data);
-          //res.send('aqi : ' +  aqi);
-        })
-        .catch(err => {
-          console.log('Error getting documents', err);
+            //월별 데이터
+            var m = dateFormat(doc.data().reg_dt.toDate(), "m");
+            var d = dateFormat(doc.data().reg_dt.toDate(), "d");
+            console.log("data : ", data);
+
+            console.log("m : ", m);
+            console.log("d : ", d);
+            console.log("today : ", today);
+
+            console.log(data.monthly[m]);
+
+            //일별데이터
+            if(thisMonth == m)
+                data.daily[d].measure = data.daily[d].measure + Number(doc.data().aqi);
+            
+            //시간별
+            if(today == d){
+                var hour = dateFormat(doc.data().reg_dt.toDate(), "H");
+                console.log("hour : ", hour);
+                data.timely[hour].measure = data.timely[hour].measure + Number(doc.data().aqi);
+            }
         });
+
+        //json 응답전송
+        res.status(200).json(data);
+    })
+    .catch(err => {
+        console.log('Error getting documents', err);
+    });
 });
 
 //json 입력 테스트
@@ -98,14 +109,13 @@ app.post('/sensor/measure', function(req, res){
     
     var dt = new Date();
 
-    console.log("dt format : ", dt.format("yyyyMMdd_HH:mm"));
-    var docRef = db.collection('test').doc(dt.format("yyyyMMdd_HH:mm"));
-//    var hDocRef = yyyyMMddDocRef.collection(dt.format("HH")).doc(dt.format("mm"));
+    console.log("dt format : ", dateFormat(dt, "yyyymmdd_HH:MM"));
+    var docRef = db.collection('test').doc( dateFormat(dt, "yyyymmdd_HH:MM"));
 
     measure.reg_dt =  new Date();
-    measure.dt = dt.format("yyyyMMdd");
-    measure.hh = dt.format("HH");
-    measure.mm = dt.format("mm");
+    measure.dt = dateFormat(dt, "yyyymmdd");
+    measure.hh = dateFormat(dt, "HH");
+    measure.mm = dateFormat(dt, "MM");
 
     docRef.set(measure);
     
@@ -120,20 +130,16 @@ app.get('/sensor/measure', function(req, res){
      console.log(req.query);
 
     var dt = new Date();
-
-    // var yyyyMMddDocRef = db.collection('dustMeasure').doc(dt.format("yyyyMMdd"));
-    // var hDocRef = yyyyMMddDocRef.collection(dt.format("HH")).doc(dt.format("mm"));
-
-    var testDocRef = db.collection("dustData").doc(dt.format("yyyyMMdd_HH:mm"));
+    var testDocRef = db.collection("dustData").doc(dateFormat(dt, "yyyymmdd_HH:MM"));
 
     var measure = {
             "sensor_id" : req.query.sensor_id,
             "measure" : req.query.measure,
             "aqi" : req.query.aqi,
             "reg_dt" : dt,
-            "dt" : dt.format("yyyyMMdd"),
-            "hh" : dt.format("HH"),
-            "mm" : dt.format("mm")
+            "dt" : dateFormat(dt, "yyyymmdd"),
+            "hh" : dateFormat(dt, "HH"),
+            "mm" : dateFormat(dt, "MM")
     };
     
     console.log("measure ", measure );
@@ -144,32 +150,24 @@ app.get('/sensor/measure', function(req, res){
   
   app.listen(3000);
 
+  function dataInit(){
+    //응답 데이터 초기화    
+    var data = {monthly : [], daily : [], timely : []};
 
+    //월별 데이터
+    for(var i = 1; i <= 12; i++)
+        data.monthly.push({dt : i, measure : 0});
+    
+    //일별데이터
+    var now = new Date();
+    var lastDay = new Date(now.getYear(), now.getMonth() + 1, 0).getDate();
+    for(var i = 1; i <= lastDay; i++)
+        data.daily.push({dt : i, measure : 0});
 
-  Date.prototype.format = function(f) {
-    if (!this.valueOf()) return " ";
- 
-    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-    var d = this;
-     
-    return f.replace(/(yyyy|yy|MM|M|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
-        switch ($1) {
-            case "yyyy": return d.getFullYear();
-            case "yy": return (d.getFullYear() % 1000).zf(2);
-            case "MM": return (d.getMonth() + 1).zf(2);
-            case "M": return (d.getMonth() + 1);
-            case "dd": return d.getDate().zf(2);
-            case "E": return weekName[d.getDay()];
-            case "HH": return d.getHours().zf(2);
-            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
-            case "mm": return d.getMinutes().zf(2);
-            case "ss": return d.getSeconds().zf(2);
-            case "a/p": return d.getHours() < 12 ? "오전" : "오후";
-            default: return $1;
-        }
-    });
-};
- 
-String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
-String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
-Number.prototype.zf = function(len){return this.toString().zf(len);};
+    //시간별
+    for(var i = 0; i <= 23; i++)
+        data.timely.push({dt : i, measure : 0});
+
+    return data;
+}
+
