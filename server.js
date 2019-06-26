@@ -45,12 +45,13 @@ app.get("/sensor/measureView", function(req, res){
 
 //미세먼지 데이터 요청 json
 app.get("/sensor/getMeasure", function(req, res){
-    
     //응답 데이터 초기화    
     var data = dataInit();
-
-    var sdt = new Date('2019-01-01T00:00:00');
-    var edt = new Date('2019-12-31T23:59:59');
+    
+    var now = new Date();
+    
+    var sdt = new Date(dateFormat(now, 'yyyy') + '-01-01T00:00:00');
+    var edt = new Date(dateFormat(now, 'yyyy') + '-12-31T23:59:59');
     
     //일별
     var dustColl = db.collection('dustData')
@@ -62,24 +63,20 @@ app.get("/sensor/getMeasure", function(req, res){
             return;
         }  
         
-        var thisMonth = dateFormat(new Date(), "m");
-        var today = dateFormat(new Date(), "d");
-
+        var thisMonth = dateFormat(now, "m");
+        var today = dateFormat(now, "d");
+        console.log("thisMonth : ", thisMonth);
+        console.log("today : ", today);
 
         var aqi = 0;
         snapshot.forEach(doc => {
             
             //console.log(doc.id, '=>', doc.data());
-            //월별 데이터
+            //월별 데이터 ( [ 월, 데이터, 월 데이터 형식])
             var m = dateFormat(doc.data().reg_dt.toDate(), "m");
             var d = dateFormat(doc.data().reg_dt.toDate(), "d");
-            console.log("data : ", data);
-
-            console.log("m : ", m);
-            console.log("d : ", d);
-            console.log("today : ", today);
-
-            console.log(data.monthly[m]);
+            
+            data.monthly[m].measure = data.monthly[m].measure + Number(doc.data().aqi);
 
             //일별데이터
             if(thisMonth == m)
@@ -92,6 +89,8 @@ app.get("/sensor/getMeasure", function(req, res){
                 data.timely[hour].measure = data.timely[hour].measure + Number(doc.data().aqi);
             }
         });
+
+        console.log("data : ", data);
 
         //json 응답전송
         res.status(200).json(data);

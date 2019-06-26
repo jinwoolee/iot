@@ -33,21 +33,13 @@ function getData() {
 }
 function drawMonthlyChart(monthlyData) {
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'month');
+    data.addColumn('number', 'month');
     data.addColumn('number', 'dust');
     var dataArr = [];
-    for (var i = 1; i <= 12; i++)
-        dataArr.push([ i.toString(), 1 ]);
-    for (var i = 0; i < dataArr.length; i++) {
-        for (var month = 0; month < monthlyData.length; month++) {
-            console.log("i : " + i);
-            if (monthlyData[month].dt == dataArr[i][0]) {
-                dataArr[i][1] = monthlyData[month].measure;
-                break;
-            }
-        }
-    }
-    console.log("monthly : " + dataArr);
+    monthlyData.forEach(element => {
+        dataArr.push([ element.dt-1, element.measure ]);
+    });
+    
     data.addRows(dataArr);
     var options = {
         chart : {
@@ -55,8 +47,7 @@ function drawMonthlyChart(monthlyData) {
         },
         vAxis : {
             title : 'dust',
-            ticks : [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
-                    "11", "12" ]
+            ticks : [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
         },
         width : 1200,
         height : 400
