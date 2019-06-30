@@ -1,0 +1,6 @@
+body{
+    width:100%;
+}
+#timely, #daily, #monthly{
+    display : inline;
+}

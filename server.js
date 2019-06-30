@@ -76,11 +76,13 @@ app.get("/sensor/getMeasure", function(req, res){
             var m = dateFormat(doc.data().reg_dt.toDate(), "m");
             var d = dateFormat(doc.data().reg_dt.toDate(), "d");
             
-            data.monthly[m].measure = data.monthly[m].measure + Number(doc.data().aqi);
+            console.log("thisMonth : ", thisMonth, " / m : ", m, "thisMonth == m : ", thisMonth == m);
+
+            data.monthly[m-1].measure = data.monthly[m-1].measure + Number(doc.data().aqi);
 
             //일별데이터
             if(thisMonth == m)
-                data.daily[d].measure = data.daily[d].measure + Number(doc.data().aqi);
+                data.daily[d-1].measure = data.daily[d-1].measure + Number(doc.data().aqi);
             
             //시간별
             if(today == d){
