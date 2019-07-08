@@ -137,10 +137,7 @@ app.get('/sensor/measure', function(req, res){
             "sensor_id" : req.query.sensor_id,
             "measure" : req.query.measure,
             "aqi" : req.query.aqi,
-            "reg_dt" : dt,
-            "dt" : dateFormat(dt, "yyyymmdd"),
-            "hh" : dateFormat(dt, "HH"),
-            "mm" : dateFormat(dt, "MM")
+            "reg_dt" : dt
     };
     
     console.log("measure ", measure );
