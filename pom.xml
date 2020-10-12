@@ -11,7 +11,7 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     
     		<!-- Test -->
-		<version.junit>4.11</version.junit>
+		<version.junit>4.13.1</version.junit>
 		<version.hamcrest>1.3</version.hamcrest>
 
 		<!-- Logging -->
