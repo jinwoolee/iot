@@ -22,7 +22,7 @@
 		<version.spring>3.2.5.RELEASE</version.spring>
 
 		<!-- MyBatis -->
-		<version.mybatis>3.2.3</version.mybatis>
+		<version.mybatis>3.5.6</version.mybatis>
 		<version.mybatis.spring>1.2.1</version.mybatis.spring>
 
 		<!-- Jackson -->
