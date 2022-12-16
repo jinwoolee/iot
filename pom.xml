@@ -19,7 +19,7 @@
 		<version.logback>1.2.1</version.logback>
 
 		<!-- Spring -->
-		<version.spring>3.2.5.RELEASE</version.spring>
+		<version.spring>5.2.20.RELEASE</version.spring>
 
 		<!-- MyBatis -->
 		<version.mybatis>3.2.3</version.mybatis>
